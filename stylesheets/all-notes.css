@@ -253,18 +253,55 @@ body {
 
 /* --- Mobile Responsiveness --- */
 @media screen and (max-width: 768px) {
+    /* Navbar & Typography */
+    .navbar { padding: 1rem 5%; }
+    .page-header h1 { font-size: 2rem; }
+    
+    /* Hamburger Menu Animation */
     .hamburger { display: block; }
     .nav-links {
-        position: fixed; right: -100%; top: 0; height: 100vh; width: 65%;
-        background-color: var(--white); flex-direction: column; justify-content: center;
+        position: fixed; right: -100%; top: 0; height: 100vh; width: 70%;
+        background-color: var(--white); flex-direction: column; justify-content: flex-start;
+        padding-top: 6rem; /* Pushes links down from the top edge */
         gap: 2rem; box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1); transition: right 0.4s ease;
     }
     .nav-links.nav-active { right: 0; }
-    .toggle .line1 { transform: rotate(-45deg) translate(-5px, 6px); }
-    .toggle .line2 { opacity: 0; }
-    .toggle .line3 { transform: rotate(45deg) translate(-5px, -6px); }
+    
+    .hamburger.toggle .line1 { transform: rotate(-45deg) translate(-5px, 6px); }
+    .hamburger.toggle .line2 { opacity: 0; }
+    .hamburger.toggle .line3 { transform: rotate(45deg) translate(-5px, -6px); }
 
-    .controls-section { flex-direction: column; align-items: stretch; }
-    .sort-box { flex-direction: column; align-items: flex-start; }
-    .sort-box select { width: 100%; }
+    /* Controls (Search & Sort) */
+    .controls-section { 
+        flex-direction: column; 
+        align-items: stretch; 
+        padding: 1.25rem;
+    }
+    
+    .search-box { 
+        flex-direction: column; /* Stacks input and button vertically */
+        width: 100%; 
+    }
+    
+    .search-box input, 
+    .search-box button { 
+        width: 100%; 
+    }
+    
+    .sort-box { 
+        flex-direction: column; 
+        align-items: flex-start; 
+        width: 100%; 
+    }
+    
+    .sort-box select { 
+        width: 100%; 
+    }
+
+    /* Grid Layout */
+    .notes-grid { 
+        /* Forces 1 column on mobile to prevent horizontal scroll overflow */
+        grid-template-columns: 1fr; 
+        gap: 1.5rem; 
+    }
 }
