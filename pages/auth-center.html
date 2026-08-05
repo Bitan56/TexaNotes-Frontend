@@ -1,55 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <script src="../javascript/developer-guard.js"></script>
+    <script src="../javascript/block-guard.js"></script>
+    <script src="../javascript/auth-guard.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Users - TexaNotes</title>
+    <title>Dashboard - TexaNotes</title>
     <link rel="stylesheet" href="../stylesheets/auth-center.css">
-    <!-- Optional: Add your admin-guard.js script here to protect this page -->
 </head>
+
 <body>
 
+    <!-- Navigation Bar -->
     <nav class="navbar">
-        <div class="logo">TexaNotes Admin</div>
-        <a href="admin.html" class="btn-back">← Admin Dashboard</a>
+        <div class="logo" title="TexaNotes">TexaNotes</div>
+
+        <ul class="nav-links">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="./profile.html">Profile</a></li>
+            <li><a href="#" id="btn-logout" class="btn-logout">Logout</a></li>
+        </ul>
+
+        <!-- Hamburger Icon for Mobile -->
+        <div class="hamburger">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
     </nav>
 
+    <!-- Main Content -->
     <main class="dashboard-container">
-        <div class="header-section">
-            <h2>User Management</h2>
-            <p>Control admin privileges and block/unblock accounts.</p>
-        </div>
+        <header class="page-header">
+            <h1>Control Panel</h1>
+            <p>Select a module to manage your application data.</p>
+        </header>
 
-        <!-- NEW: Search and Sort Controls -->
-        <div class="controls-section">
-            <input type="text" id="search-input" class="search-input" placeholder="Search by name, username, or email...">
-            <div class="sort-buttons">
-                <button id="btn-sort-admin" class="btn-sort">Sort: Admins First</button>
-                <button id="btn-sort-blocked" class="btn-sort">Sort: Blocked First</button>
-            </div>
-        </div>
+        <!-- Options Grid -->
+        <div class="options-grid">
 
-        <div class="card">
-            <div class="table-responsive">
-                <table class="users-table">
-                    <thead>
-                        <tr>
-                            <th>User Details</th>
-                            <th>Admin Privileges</th>
-                            <th>Account Access</th>
-                        </tr>
-                    </thead>
-                    <tbody id="users-tbody">
-                        <tr>
-                            <td colspan="3" class="loading-state">Loading users...</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+            <!-- Users Option -->
+            <a href="./user-auth-center.html" class="option-card">
+                <div class="icon-wrapper users-icon">
+                    <!-- SVG User Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                    </svg>
+                </div>
+                <h2>Users</h2>
+                <p>View, search, block, and manage registered accounts.</p>
+            </a>
+
+            <!-- Notes Option -->
+            <a href="./notes-auth-center.html" class="option-card">
+                <div class="icon-wrapper notes-icon">
+                    <!-- SVG Document Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                </div>
+                <h2>Notes</h2>
+                <p>Browse, upload, and organize study materials.</p>
+            </a>
+
         </div>
     </main>
 
     <script src="../javascript/auth-center.js"></script>
 </body>
+
 </html>

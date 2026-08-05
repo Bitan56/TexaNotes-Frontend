@@ -33,6 +33,7 @@ async function fetchNotes() {
                     </td>
                     <td>
                         <button class="btn-action btn-edit" onclick="editNote('${note._id}')">Edit</button>
+                        <button class="btn-action btn-delete" onclick="deleteNote('${note._id}', '${note.name}')">Delete</button>
                     </td>
                 </tr>
             `;
@@ -44,30 +45,30 @@ async function fetchNotes() {
     }
 }
 
-// // Delete note logic
-// window.deleteNote = async (noteId, noteName) => {
-//     if (!confirm(`Are you sure you want to permanently delete the note: "${noteName}"? This will also remove the file from storage.`)) {
-//         return;
-//     }
+// Delete note logic
+window.deleteNote = async (noteId, noteName) => {
+    if (!confirm(`Are you sure you want to permanently delete the note: "${noteName}"? This will also remove the file from storage.`)) {
+        return;
+    }
 
-//     try {
-//         // Assuming your backend route is DELETE /api/notes/delete/:id
-//         const response = await fetch(`https://texanotes-backend.vercel.app/api/notes/delete/${noteId}`, {
-//             method: 'DELETE'
-//         });
+    try {
+        // Assuming your backend route is DELETE /api/notes/delete/:id
+        const response = await fetch(`https://texanotes-backend.vercel.app/api/notes/delete/${noteId}`, {
+            method: 'DELETE'
+        });
 
-//         if (response.ok) {
-//             alert('Note deleted successfully.');
-//             fetchNotes(); // Refresh the table
-//         } else {
-//             const errorData = await response.json().catch(() => null);
-//             alert(errorData?.message || 'Failed to delete note.');
-//         }
-//     } catch (error) {
-//         console.error("Error deleting note:", error);
-//         alert("A network error occurred.");
-//     }
-// };
+        if (response.ok) {
+            alert('Note deleted successfully.');
+            fetchNotes(); // Refresh the table
+        } else {
+            const errorData = await response.json().catch(() => null);
+            alert(errorData?.message || 'Failed to delete note.');
+        }
+    } catch (error) {
+        console.error("Error deleting note:", error);
+        alert("A network error occurred.");
+    }
+};
 
 // Edit note logic
 window.editNote = (noteId) => {

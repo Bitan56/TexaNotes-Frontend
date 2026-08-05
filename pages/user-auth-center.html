@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../javascript/developer-guard.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Users - TexaNotes</title>
+    <link rel="stylesheet" href="../stylesheets/user-auth-center.css">
+    <!-- Optional: Add your admin-guard.js script here to protect this page -->
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">TexaNotes Admin</div>
+        <a href="admin.html" class="btn-back">← Admin Dashboard</a>
+    </nav>
+
+    <main class="dashboard-container">
+        <div class="header-section">
+            <h2>User Management</h2>
+            <p>Control admin privileges and block/unblock accounts.</p>
+        </div>
+
+        <!-- NEW: Search and Sort Controls -->
+        <div class="controls-section">
+            <input type="text" id="search-input" class="search-input" placeholder="Search by name, username, or email...">
+            <div class="sort-buttons">
+                <button id="btn-sort-admin" class="btn-sort">Sort: Admins First</button>
+                <button id="btn-sort-blocked" class="btn-sort">Sort: Blocked First</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="table-responsive">
+                <table class="users-table">
+                    <thead>
+                        <tr>
+                            <th>User Details</th>
+                            <th>Admin Privileges</th>
+                            <th>Account Access</th>
+                        </tr>
+                    </thead>
+                    <tbody id="users-tbody">
+                        <tr>
+                            <td colspan="3" class="loading-state">Loading users...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <script src="../javascript/user-auth-center.js"></script>
+</body>
+</html>
