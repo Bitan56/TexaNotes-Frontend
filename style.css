@@ -83,7 +83,7 @@ body {
 }
 
 .hamburger div {
-    width: 25px;
+    width: 40px;
     height: 3px;
     background-color: var(--text-dark);
     margin: 5px;
