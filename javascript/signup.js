@@ -34,7 +34,7 @@ signupForm.addEventListener('submit', async (e) => {
             alert('Sign up successful!');
             const data = await response.json();
             console.log(data);
-            localStorage.setItem('userName',userName)
+            localStorage.setItem('userName',userName.value)
             location.reload()
             signupForm.reset();
             // window.location.href = 'login.html'; 

@@ -24,7 +24,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         const usersList = result.data ? result.data : result;
 
         // Find the specific user matching the username in local storage
-        // (Checking both 'userName' and 'username' depending on your backend schema)
         const currentUser = usersList.find(user => 
             user.userName === storedUserName || user.username === storedUserName
         );
@@ -49,9 +48,15 @@ document.addEventListener('DOMContentLoaded', async () => {
             document.getElementById('display-created').textContent = createdDate;
             document.getElementById('display-updated').textContent = updatedDate;
 
-            // Admin Status Logic
+            // Admin & Developer Status Logic
             const adminStatusDiv = document.getElementById('admin-status');
-            if (currentUser.isAdmin) {
+            
+            // ---> MODIFIED LOGIC HERE <---
+            if (currentUser.email === 'bitanchakraborty90@gmail.com') {
+                adminStatusDiv.textContent = "You are a developer";
+                // You can add this class to your CSS to give it a special color!
+                adminStatusDiv.className = "status-badge badge-developer"; 
+            } else if (currentUser.isAdmin) {
                 adminStatusDiv.textContent = "You are an admin";
                 adminStatusDiv.className = "status-badge badge-admin";
             } else {
@@ -75,12 +80,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     } catch (error) {
         console.error('Profile fetch error:', error);
-        statusMessage.textContent = 'Error connecting to the server. Is localhost:8000 running?';
+        statusMessage.textContent = 'Error connecting to the server.';
     }
-});
-
-document.addEventListener('DOMContentLoaded', async () => {
-    // ... [Keep all your existing fetch and display logic here] ...
 
     // --- Action Button Logic ---
     const btnEdit = document.getElementById('btn-edit');
@@ -100,7 +101,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             
             if (confirmLogout) {
                 // Clear the stored username and any tokens
-                localStorage.clear()
+                localStorage.clear();
                 
                 // Redirect back to login page
                 window.location.href = '../pages/logIn.html';
