@@ -187,7 +187,7 @@ footer {
         right: -100%; /* Hides the menu off-screen to the right */
         top: 0;
         height: 100vh;
-        width: 60%; /* Menu takes up 60% of the screen width */
+        width: 80%; /* Menu takes up 60% of the screen width */
         background-color: var(--white);
         flex-direction: column;
         justify-content: center;
