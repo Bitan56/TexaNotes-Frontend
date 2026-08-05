@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../javascript/block-guard.js"></script>
+    <script src="../javascript/auth-guard.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categories - NotesApp</title>
+    <link rel="stylesheet" href="../stylesheets/all-notes.css">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo" title="NotesApp">NotesApp</div>
+        
+        <ul class="nav-links">
+            <li><a href="#" id="nav-all" class="active">All Notes</a></li>
+            <li><a href="#" id="nav-theory">Theory Notes</a></li>
+            <li><a href="#" id="nav-practical">Practical Notes</a></li>
+            <li><a href="../index.html" class="btn-home">Home</a></li>
+        </ul>
+
+        <!-- Hamburger Icon for Mobile -->
+        <div class="hamburger">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="view-container">
+        <header class="page-header">
+            <h1 id="category-title">All Notes</h1>
+            <p>Browse study materials grouped by category.</p>
+        </header>
+
+        <!-- Search & Sort Controls -->
+        <div class="controls-section">
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="Search by name, teacher, subject...">
+                <button id="search-btn" class="btn-primary">Search</button>
+            </div>
+            
+            <div class="sort-box">
+                <label for="sort-select">Sort By:</label>
+                <select id="sort-select">
+                    <option value="date-desc">Date Uploaded (Newest)</option>
+                    <option value="date-asc">Date Uploaded (Oldest)</option>
+                    <option value="name-asc">Name (A-Z)</option>
+                    <option value="name-desc">Name (Z-A)</option>
+                    <option value="subject-asc">Subject/Paper Code (A-Z)</option>
+                    <option value="teacher-asc">Teacher (A-Z)</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Notes Display Grid -->
+        <div id="notes-grid" class="notes-grid">
+            <!-- Loading state -->
+            <div class="loading-state">Fetching notes...</div>
+        </div>
+    </main>
+
+    <script src="../javascript/all-notes.js"></script>
+</body>
+</html>

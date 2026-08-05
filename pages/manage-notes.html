@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../javascript/admin-guard.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Notes - TexaNotes</title>
+    <link rel="stylesheet" href="../stylesheets/manage-notes.css">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo">TexaNotes Admin</div>
+        <a href="./admin.html" class="btn-back">← Back to Admin Panel</a>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="management-container">
+        <div class="header-section">
+            <h2>Manage Notes</h2>
+            <p>Review, edit, or delete uploaded study materials across the platform.</p>
+        </div>
+
+        <div class="card">
+            <div class="table-responsive">
+                <table class="notes-table">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Subject/Paper</th>
+                            <th>Teacher</th>
+                            <th>File</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="notes-table-body">
+                        <tr>
+                            <td colspan="5" class="text-center loading-text">Fetching notes from server...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <script src="../javascript/manage-notes.js"></script>
+</body>
+</html>

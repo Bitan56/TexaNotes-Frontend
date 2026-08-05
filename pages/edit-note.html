@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../javascript/admin-guard.js"></script>
+    <script src="../javascript/auth-guard.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Note - TexaNotes</title>
+    <link rel="stylesheet" href="../stylesheets/edit-note.css">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo">TexaNotes Admin</div>
+        <a href="./manage-notes.html" class="btn-back">← Back to Manage Notes</a>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="form-container">
+        <div class="header-section">
+            <h2>Edit Note</h2>
+            <p>Update the details of the note. Uploading a new file will replace and delete the old one.</p>
+        </div>
+
+        <div class="card">
+            <form id="edit-note-form" enctype="multipart/form-data">
+                
+                <div class="form-group">
+                    <label for="name">Note Name (Title) *</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="uploadedBy">Uploaded By *</label>
+                        <input type="text" id="uploadedBy" name="uploadedBy" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="teacher">Teacher *</label>
+                        <input type="text" id="teacher" name="teacher" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="subject">Subject *</label>
+                        <input type="text" id="subject" name="subject" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="paperCode">Paper Code *</label>
+                        <input type="text" id="paperCode" name="paperCode" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="semester">Semester *</label>
+                        <input type="number" id="semester" name="semester" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="moduleNumber">Module Number *</label>
+                        <input type="number" id="moduleNumber" name="moduleNumber" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="paper">Paper Type *</label>
+                        <select id="paper" name="paper" required>
+                            <option value="Theory">Theory</option>
+                            <option value="Practical">Practical</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="file">Replace Note File (Optional - PDF only)</label>
+                    <div class="current-file-info" id="current-file-info">
+                        Current file: <a href="#" id="current-file-link" target="_blank">View</a>
+                    </div>
+                    <input type="file" id="file" name="file" accept="application/pdf">
+                    <small>Leave this empty if you want to keep the existing file.</small>
+                </div>
+
+                <button type="submit" id="submit-btn" class="btn-submit">Update Note</button>
+                <div id="status-message"></div>
+            </form>
+        </div>
+    </main>
+
+    <script src="../javascript/edit-note.js"></script>
+</body>
+</html>

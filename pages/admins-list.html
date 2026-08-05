@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../javascript/admin-guard.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin List - NotesApp</title>
+    <link rel="stylesheet" href="../stylesheets/admins-list.css">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo">NotesApp Admin</div>
+        <a href="admin.html" class="btn-back">← Back to Admin Panel</a>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="list-container">
+        <div class="list-header">
+            <h2>System Administrators</h2>
+            <p>Users with administrative privileges.</p>
+        </div>
+
+        <!-- Loading / Error Message -->
+        <div id="status-message" class="status-message">Fetching administrators...</div>
+
+        <!-- Admin List Grid -->
+        <div id="admin-grid" class="admin-grid hidden">
+            <!-- JavaScript will populate the admin cards here -->
+        </div>
+    </main>
+
+    <script src="../javascript/admins-list.js"></script>
+</body>
+</html>

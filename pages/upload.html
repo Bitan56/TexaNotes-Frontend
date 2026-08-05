@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../javascript/auth-guard.js"></script>
+    <script src="../javascript/admin-guard.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Notes - TexaNotes</title>
+    <link rel="stylesheet" href="../stylesheets/upload.css">
+</head>
+<body>
+
+    <!-- Back to Dashboard Button -->
+    <nav class="simple-nav">
+        <a href="./notes.html" class="back-btn">← Back to Notes Section</a>
+    </nav>
+
+    <div class="upload-container">
+        <div class="upload-card">
+            <h2>Upload a New Note</h2>
+            <p>Fill out the details below to add a new document to the database.</p>
+            
+            <form id="upload-form">
+                <div class="form-grid">
+                    <!-- Name -->
+                    <div class="input-group">
+                        <label for="name">Note Title/Name</label>
+                        <input type="text" id="name" name="name" placeholder="e.g., Economics" required>
+                    </div>
+
+                    <!-- Uploaded By -->
+                    <div class="input-group">
+                        <label for="uploadedBy">Uploaded By</label>
+                        <input type="text" id="uploadedBy" name="uploadedBy" placeholder="Your name" required>
+                    </div>
+
+                    <!-- Uploaded On -->
+                    <div class="input-group">
+                        <label for="uploadedOn">Uploaded On</label>
+                        <input type="date" id="uploadedOn" name="uploadedOn" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="semester">Semester</label>
+                        <select id="semester" name="semester" required>
+                            <option value="" disabled selected>Select the semester</option>
+                            <option value="1st">1st</option>
+                            <option value="2nd">2nd</option>
+                            <option value="3rd">3rd</option>
+                            <option value="4th">4th</option>
+                            <option value="5th">5th</option>
+                            <option value="6th">6th</option>
+                            <option value="7th">7th</option>
+                            <option value="8th">8th</option>
+                        </select>
+                    </div>
+
+                    <!-- Paper Type -->
+                    <div class="input-group">
+                        <label for="paper">Paper</label>
+                        <select id="paper" name="paper" required>
+                            <option value="" disabled selected>Select paper type</option>
+                            <option value="Theory">Theory</option>
+                            <option value="Practical">Practical</option>
+                        </select>
+                    </div>
+
+                    <!-- Paper Code -->
+                    <div class="input-group">
+                        <label for="paperCode">Paper Code</label>
+                        <input type="text" id="paperCode" name="paperCode" placeholder="e.g., CS101" required>
+                    </div>
+
+                    <!-- Module Number -->
+                    <div class="input-group">
+                        <label for="moduleNumber">Module Number</label>
+                        <input type="number" id="moduleNumber" name="moduleNumber" min="1" placeholder="e.g., 3" required>
+                    </div>
+
+                    <!-- Teacher -->
+                    <div class="input-group full-width">
+                        <label for="teacher">Teacher / Professor</label>
+                        <input type="text" id="teacher" name="teacher" placeholder="e.g., Dr. Alan Turing" required>
+                    </div>
+                </div>
+
+                <!-- File Upload -->
+                <div class="input-group full-width file-upload-section">
+                    <label for="pdfFile">Upload PDF Note (Max 2MB)</label>
+                    <input type="file" id="pdfFile" name="pdfFile" accept=".pdf" required>
+                    <small id="file-error" class="error-text"></small>
+                </div>
+                
+                <button type="submit" class="btn-submit">Upload Note</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="../javascript/upload.js"></script>
+</body>
+</html>

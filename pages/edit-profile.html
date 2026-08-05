@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../javascript/auth-guard.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile - TexaNotes</title>
+    <link rel="stylesheet" href="../stylesheets/edit-profile.css">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo" title="NotesApp">TexaNotes</div>
+        <a href="./profile.html" class="btn-cancel">← Cancel</a>
+    </nav>
+
+    <div class="edit-container">
+        <div class="edit-card">
+            <h2>Edit Profile</h2>
+            <p>Update your personal details below.</p>
+            
+            <form id="edit-form">
+                <div class="input-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="userName">Username</label>
+                    <input type="text" id="userName" name="userName" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="password">New Password (leave blank to keep current)</label>
+                    <input type="password" id="password" name="password" placeholder="Enter a new password">
+                </div>
+                
+                <button type="submit" class="btn-submit">Save Changes</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="../javascript/edit-profile.js"></script>
+</body>
+</html>

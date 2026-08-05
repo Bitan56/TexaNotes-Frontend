@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../javascript/admin-guard.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - NotesApp</title>
+    <link rel="stylesheet" href="../stylesheets/admin.css">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo">NotesApp Admin</div>
+        <a href="../index.html" class="btn-home">← Back to Site</a>
+    </nav>
+
+    <!-- Main Admin Menu -->
+    <main class="dashboard-container">
+        <div class="dashboard-header">
+            <h1>Admin Control Panel</h1>
+            <p>Select a module below to manage the system.</p>
+        </div>
+
+        <div class="menu-grid">
+            
+            <!-- Option 1: Admins -->
+            <a href="admins-list.html" class="menu-card">
+                <div class="card-icon">🛡️</div>
+                <h3>Admins</h3>
+                <p>View the list of users who have administrative privileges.</p>
+                <p>For Everyone.</p>
+            </a>
+
+            <!-- Option 2: Manage Users -->
+            <a href="manage-users.html" class="menu-card">
+                <div class="card-icon">👥</div>
+                <h3>Manage Users</h3>
+                <p>View, block, unblock, or delete registered users in the system.</p>
+                <p>Only for admins.</p>
+            </a>
+
+            <!-- Option 3: Manage Notes -->
+            <a href="manage-notes.html" class="menu-card">
+                <div class="card-icon">📚</div>
+                <h3>Manage Notes</h3>
+                <p>Review, moderate, and delete uploaded study materials.</p>
+                <p>Only for admins.</p>
+            </a>
+
+        </div>
+    </main>
+
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../javascript/auth-guard.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - TexaNotes</title>
+    <link rel="stylesheet" href="../stylesheets/profile.css">
+</head>
+<body>
+
+    <!-- Simple Navbar -->
+    <nav class="navbar">
+        <div class="logo" title="NotesApp">TexaNotes</div>
+        <a href="../index.html" class="btn-home">← Back to Home</a>
+    </nav>
+
+    <!-- Main Profile Container -->
+    <main class="profile-container">
+        <div class="profile-card">
+            
+            <!-- Loading/Error State -->
+            <div id="status-message" class="status-message">Loading profile data...</div>
+
+            <!-- Profile Data (Hidden until loaded) -->
+            <div id="profile-content" class="profile-content hidden">
+                <div class="profile-header">
+                    <div class="avatar" id="avatar-placeholder">U</div>
+                    <div class="header-info">
+                        <h2 id="display-name">Name</h2>
+                        <p id="display-username">@username</p>
+                    </div>
+                </div>
+
+                <div class="info-group">
+                    <label>Email Address</label>
+                    <p id="display-email">email@example.com</p>
+                </div>
+
+                <div class="info-row">
+                    <div class="info-group">
+                        <label>Account Created</label>
+                        <p id="display-created">Jan 1, 2026</p>
+                    </div>
+                    <div class="info-group">
+                        <label>Last Updated</label>
+                        <p id="display-updated">Feb 1, 2026</p>
+                    </div>
+                </div>
+
+                <div class="status-badges">
+                    <div id="admin-status" class="status-badge">Checking Admin Status...</div>
+                    <div id="blocked-status" class="status-badge">Checking Block Status...</div>
+                </div>
+
+                <!-- NEW: Action Buttons -->
+                <div class="profile-actions">
+                    <button id="btn-edit" class="btn-primary">Edit Profile</button>
+                    <button id="btn-logout" class="btn-danger">Logout</button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script src="../javascript/profile.js"></script>
+</body>
+</html>

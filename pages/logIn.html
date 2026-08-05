@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../javascript/logIn-block.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - TexaNotes</title>
+    <link rel="stylesheet" href="../stylesheets/logIn.css">
+</head>
+<body>
+    
+    <!-- Home Button -->
+    <a href="../index.html" class="home-btn">← Back to Home</a>
+
+    <div class="login-container">
+        <div class="login-card">
+            <h2>Welcome Back</h2>
+            <p>Log in to access your notes and organized thoughts.</p>
+            
+            <form id="login-form">
+                <div class="input-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" placeholder="Enter your Username" required>
+                </div>
+                
+                <div class="input-group">
+                    <!-- Updated Label Row for Forgot Password -->
+                    <div class="label-row">
+                        <label for="password">Password</label>
+                        <a href="./forgot-password.html" class="forgot-pwd">Forgot password?</a>
+                    </div>
+                    <input type="password" id="password" name="password" placeholder="Enter your Password" required>
+                </div>
+                
+                <button type="submit" class="btn-submit">Log In</button>
+            </form>
+            
+            <p class="redirect-text">
+                Don't have an account? <a href="signup.html">Sign up here</a>
+            </p>
+        </div>
+    </div>
+
+    <script src="../javascript/logIn.js"></script>
+</body>
+</html>

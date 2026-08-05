@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../javascript/admin-guard.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Users - TexaNotes</title>
+    <link rel="stylesheet" href="../stylesheets/manage-users.css">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo">TexaNotes Admin</div>
+        <a href="./admin.html" class="btn-back">← Back to Admin Panel</a>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="management-container">
+        <div class="header-section">
+            <h2>Manage Users</h2>
+            <p>View registered users and manage their access to the platform.</p>
+        </div>
+
+        <div class="card">
+            <div class="table-responsive">
+                <table class="users-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="users-table-body">
+                        <tr>
+                            <td colspan="5" class="text-center loading-text">Fetching users from server...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <script src="../javascript/manage-users.js"></script>
+</body>
+</html>

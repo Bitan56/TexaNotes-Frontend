@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../javascript/auth-guard.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes - TexaNotes</title>
+    <link rel="stylesheet" href="../stylesheets/notes.css">
+</head>
+<body>
+
+    <!-- Navigation Bar (Same as Home Page) -->
+    <nav class="navbar">
+        <div class="logo" title="TexaNotes">TexaNotes</div>
+        
+        <ul class="nav-links">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="./admin.html">Admin Panel</a></li>
+            <li><a href="./profile.html">Profile</a></li>
+            <li><a href="#" class="btn-logout">Logout</a></li>
+        </ul>
+
+        <!-- Hamburger Icon for Mobile -->
+        <div class="hamburger">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
+    </nav>
+
+    <!-- Main Dashboard Content -->
+    <main class="dashboard-container">
+        <header class="dashboard-header">
+            <h1>Welcome to your space.</h1>
+            <p>What would you like to do today?</p>
+        </header>
+
+        <div class="action-cards">
+            <!-- Upload Notes Card -->
+            <a href="./upload.html" class="action-card">
+                <div class="icon-wrapper upload-icon">
+                    <!-- Simple SVG Icon for Upload -->
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                </div>
+                <h2>Upload Notes</h2>
+                <p>Add new study materials, pdfs, or quick thoughts to your organized collection.</p>
+            </a>
+
+            <!-- View Notes Card -->
+            <a href="./all-notes.html" class="action-card">
+                <div class="icon-wrapper view-icon">
+                    <!-- Simple SVG Icon for View/Book -->
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                </div>
+                <h2>View Notes</h2>
+                <p>Browse, read, search, and manage all your previously saved notes effortlessly.</p>
+            </a>
+        </div>
+    </main>
+
+    <!-- Link to external JS file -->
+    <script src="../javascript/notes.js"></script>
+</body>
+</html>

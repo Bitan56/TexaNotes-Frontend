@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../javascript/logIn-block.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - TexaNotes</title>
+    <link rel="stylesheet" href="../stylesheets/signup.css">
+</head>
+<body>
+    <a href="../index.html" class="home-btn">← Back to Home</a>
+    <div class="signup-container">
+        <div class="signup-card">
+            <h2>Join TexaNotes</h2>
+            <p>Create an account to start organizing your thoughts.</p>
+            
+            <form id="signup-form">
+                <div class="input-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" placeholder="Enter Your Name" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="userName">Username</label>
+                    <input type="text" id="userName" name="userName" placeholder="Choose a username" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Choose a strong password" required>
+                </div>
+                
+                <button type="submit" class="btn-submit">Sign Up</button>
+            </form>
+            
+            <p class="login-redirect">
+                Already have an account? <a href="logIn.html">Log in here</a>
+            </p>
+        </div>
+    </div>
+
+    <script src="../javascript/signup.js"></script>
+</body>
+</html>
