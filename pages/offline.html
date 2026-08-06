@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <script src="../utility/pwa-register.js"></script>
     <meta charset="UTF-8">
@@ -89,60 +90,115 @@
         .btn-retry:active {
             transform: scale(0.98);
         }
-        
+
         /* Classes applied via JS when connection is restored */
         .restored .icon-container {
             color: var(--success-color);
         }
+
         .restored .btn-retry {
             background-color: var(--success-color);
             pointer-events: none;
         }
     </style>
 </head>
+
 <body>
 
     <div class="offline-container" id="status-container">
         <div class="icon-container" id="icon-container">
             <!-- Disconnected Cloud Icon -->
-            <svg id="status-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M22.5 13.284c2.146-.43 3.69-2.27 3.69-4.534 0-2.652-2.149-4.8-4.8-4.8-1.74 0-3.266.924-4.133 2.302A6 6 0 005.25 9.75c0 3.125 2.38 5.704 5.42 5.972" />
+            <svg id="status-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M22.5 13.284c2.146-.43 3.69-2.27 3.69-4.534 0-2.652-2.149-4.8-4.8-4.8-1.74 0-3.266.924-4.133 2.302A6 6 0 005.25 9.75c0 3.125 2.38 5.704 5.42 5.972" />
                 <path stroke-linecap="round" stroke-linejoin="round" d="M3 3l18 18" />
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a3 3 0 003-3v-1.5" />
             </svg>
         </div>
-        
+
         <h1 id="status-title">You're Offline</h1>
-        <p id="status-text">It looks like you've lost your internet connection. Please check your network and try again.</p>
-        
+        <p id="status-text">It looks like you've lost your internet connection. Please check your network and try again.
+        </p>
+
         <button class="btn-retry" id="retry-btn" onclick="window.location.reload()">Try Again</button>
     </div>
 
     <script>
-        // Listen for the exact moment the device connects back to the internet
-        window.addEventListener('online', () => {
-            
-            // 1. Update the UI to show success
+        // Set your target redirect and backend URL
+        const HOME_URL = '../index.html'; 
+        const BACKEND_URL = 'https://texanotes-backend.vercel.app';
+
+        // Function that handles the UI transition and redirect
+        function triggerRestoredState() {
             document.getElementById('status-container').classList.add('restored');
             
-            // Change the text
             document.getElementById('status-title').textContent = "Connection Restored!";
-            document.getElementById('status-text').textContent = "Redirecting you to the main page...";
+            document.getElementById('status-text').textContent = "Successfully connected to the server. Redirecting...";
             document.getElementById('retry-btn').textContent = "Redirecting...";
             
-            // Swap to a happy/connected cloud icon
             document.getElementById('icon-container').innerHTML = `
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15a4.5 4.5 0 004.5 4.5H18a3.75 3.75 0 001.332-7.257 3 3 0 00-3.758-3.848 5.25 5.25 0 00-10.233 2.33A4.502 4.502 0 002.25 15z" />
                 </svg>
             `;
 
-            // 2. Wait 1.5 seconds so the user can read the message, then redirect
             setTimeout(() => {
-                // Adjust this path if your main page is located somewhere else (e.g., '../index.html')
-                window.location.href = '../index.html'; 
+                window.location.href = HOME_URL; 
             }, 1500);
+        }
+
+        // Function that actively pings your backend
+        async function checkBackendConnection() {
+            const retryBtn = document.getElementById('retry-btn');
+            const originalText = retryBtn.textContent;
+            
+            retryBtn.textContent = "Checking connection...";
+            retryBtn.style.pointerEvents = "none"; // Prevent double-clicking
+
+            try {
+                // We use cache: 'no-store' so the Service Worker doesn't fake a success response
+                const response = await fetch(BACKEND_URL, { 
+                    method: 'GET',
+                    cache: 'no-store' 
+                });
+                
+                // If fetch succeeds (meaning we reached the internet and the server)
+                if (response.ok || response.type === 'opaque') {
+                    triggerRestoredState();
+                } else {
+                    // Even if the server returns a 404 or 500 error, we still reached it, 
+                    // meaning the internet is working.
+                    triggerRestoredState();
+                }
+            } catch (error) {
+                // If the fetch completely fails, we are genuinely offline
+                alert("Cannot reach the server. Please check your internet connection.");
+                retryBtn.textContent = "Try Again";
+                retryBtn.style.pointerEvents = "auto";
+            }
+        }
+
+        // TRIGGER 1: When the device hardware detects Wi-Fi/Data connection restored
+        window.addEventListener('online', () => {
+            // Don't just trust the hardware, verify with the backend!
+            checkBackendConnection();
         });
+
+        // TRIGGER 2: When the user manually clicks "Try Again"
+        document.getElementById('retry-btn').addEventListener('click', (e) => {
+            e.preventDefault(); 
+            checkBackendConnection();
+        });
+
+        // Optional TRIGGER 3: Automatically check every 10 seconds while on this page
+        setInterval(() => {
+            if (navigator.onLine) {
+                checkBackendConnection();
+            }
+        }, 10000);
+
     </script>
 </body>
+
 </html>
