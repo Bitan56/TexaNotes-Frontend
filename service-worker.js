@@ -1,5 +1,5 @@
-// A unique name for your PWA cache
-const CACHE_NAME = 'texanotes-cache-v1';
+// A unique name for your PWA cache (Bumped to v2 to force a fresh install)
+const CACHE_NAME = 'texanotes-cache-v2';
 
 // List of assets to precache immediately on install
 const ASSETS_TO_PRECACHE = [
@@ -103,44 +103,37 @@ self.addEventListener('activate', (event) => {
     );
 });
 
-// --- Fetch Event: Cache-First, Network-Fallback Strategy ---
-// Intercepts network requests and serves from cache first.
-// If not found in cache, it tries the network and caches the response.
-// --- Fetch Event: Cache-First, Network-Fallback Strategy ---
+// --- Fetch Event: Network-First, Cache-Fallback Strategy ---
 self.addEventListener('fetch', (event) => {
-    
-    // 1. Check if the user is trying to load a whole new HTML page
-    if (event.request.mode === 'navigate') {
-        event.respondWith(
-            fetch(event.request).catch(() => {
-                // If the network fails, serve the offline page
-                return caches.match('./pages/offline.html');
-            })
-        );
-    } 
-    // 2. For everything else (CSS, JS, Images, API calls)
-    else {
-        event.respondWith(
-            caches.match(event.request).then((cachedResponse) => {
+    // Only intercept GET requests
+    if (event.request.method !== 'GET') return;
+
+    event.respondWith(
+        // 1. ALWAYS try the network first
+        fetch(event.request).then((networkResponse) => {
+            // 2. If successful, clone the response and save it over the old cache
+            if (networkResponse && networkResponse.status === 200) {
+                const responseToCache = networkResponse.clone();
+                caches.open(CACHE_NAME).then((cache) => {
+                    cache.put(event.request, responseToCache);
+                });
+            }
+            // Return the fresh file to the browser
+            return networkResponse;
+            
+        }).catch(() => {
+            // 3. Network failed (user is offline). Check the cache instead.
+            return caches.match(event.request).then((cachedResponse) => {
                 if (cachedResponse) {
-                    return cachedResponse; // Serve from cache
+                    return cachedResponse; // Return the cached file
                 }
 
-                // If not in cache, try the network
-                return fetch(event.request).then((networkResponse) => {
-                    // Cache the new response if it's successful AND it's a GET request
-                    if (networkResponse && networkResponse.status === 200 && event.request.method === 'GET') {
-                        const responseToCache = networkResponse.clone();
-                        caches.open(CACHE_NAME).then((cache) => {
-                            cache.put(event.request, responseToCache);
-                        });
-                    }
-                    return networkResponse;
-                }).catch(() => {
-                    // Do nothing for failed images/APIs, just let them fail silently 
-                    // without returning the HTML offline page.
-                });
-            })
-        );
-    }
+                // 4. If neither the network nor cache has the file, check if it's an HTML page
+                if (event.request.mode === 'navigate') {
+                    // Serve the offline fallback page
+                    return caches.match('./pages/offline.html');
+                }
+            });
+        })
+    );
 });
