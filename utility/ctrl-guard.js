@@ -31,6 +31,68 @@ function applySecurityMeasures() {
         event.preventDefault();
     });
 }
-
 // Run the function when the page loads
 applySecurityMeasures();
+
+
+function initClickRipple() {
+    // 1. Inject the necessary CSS into the document head
+    const style = document.createElement('style');
+    style.innerHTML = `
+        /* The click ripple animation */
+        .cursor-ripple {
+            position: fixed;
+            border-radius: 50%;
+            background: transparent;
+            border: 2px solid rgba(79, 70, 229, 0.8); /* Indigo border */
+            box-shadow: 0 0 10px rgba(79, 70, 229, 0.5); /* Indigo glow */
+            pointer-events: none; /* Allows clicking THROUGH the ripple */
+            transform: translate(-50%, -50%);
+            z-index: 9998;
+            animation: ripple-anim 0.5s ease-out forwards;
+        }
+
+        @keyframes ripple-anim {
+            0% {
+                width: 0px;
+                height: 0px;
+                opacity: 1;
+            }
+            100% {
+                width: 60px;
+                height: 60px;
+                opacity: 0;
+            }
+        }
+    `;
+    document.head.appendChild(style);
+
+    // 2. Helper function to create and remove the click ripple
+    const createRipple = (x, y) => {
+        const ripple = document.createElement('div');
+        ripple.classList.add('cursor-ripple');
+        ripple.style.left = x + 'px';
+        ripple.style.top = y + 'px';
+        document.body.appendChild(ripple);
+
+        // Remove the element after the 0.5s animation finishes to prevent lag
+        setTimeout(() => {
+            ripple.remove();
+        }, 500); 
+    };
+
+    // 3. Click events (Desktop)
+    document.addEventListener('mousedown', (e) => {
+        createRipple(e.clientX, e.clientY);
+    });
+
+    // 4. Tap events (Mobile)
+    document.addEventListener('touchstart', (e) => {
+        if (e.touches.length > 0) {
+            createRipple(e.touches[0].clientX, e.touches[0].clientY);
+        }
+    });
+}
+
+// Initialize the effect when the page loads
+window.addEventListener('load', initClickRipple);
