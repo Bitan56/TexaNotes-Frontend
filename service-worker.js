@@ -57,7 +57,7 @@ const ASSETS_TO_PRECACHE = [
     '/javascript/developer-guard.js',
     '/javascript/edit-note.js',
     '/javascript/forgot-password.js',
-      '/javascript/login-block.js',
+    '/javascript/logIn-block.js',
     '/javascript/logIn.js',
     '/javascript/manage-notes.js',
     '/javascript/manage-users.js',
