@@ -9,6 +9,17 @@
     --border-color: #e5e7eb;
 }
 
+/* --- Dark Mode Variables --- */
+[data-theme="dark"] {
+    --primary-color: #6366f1; /* Lighter indigo for contrast */
+    --primary-hover: #4f46e5;
+    --text-dark: #f9fafb;     /* White text */
+    --text-light: #9ca3af;    /* Light gray text */
+    --bg-color: #111827;      /* Dark slate background */
+    --white: #1f2937;         /* Dark card/navbar background */
+    --border-color: #374151;  /* Darker borders */
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -21,6 +32,7 @@ body {
     color: var(--text-dark);
     line-height: 1.6;
     overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
 }
 
 /* --- Navigation Bar --- */
@@ -34,6 +46,7 @@ body {
     position: sticky;
     top: 0;
     z-index: 100;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .logo {
@@ -64,6 +77,11 @@ body {
 
 .btn-logout {
     color: #ef4444 !important;
+    transition: color 0.3s ease;
+}
+
+[data-theme="dark"] .btn-logout {
+    color: #f87171 !important; /* Lighter red for dark mode */
 }
 
 .btn-logout:hover {
@@ -100,11 +118,13 @@ body {
     font-size: 2.5rem;
     color: var(--primary-color);
     margin-bottom: 0.5rem;
+    transition: color 0.3s ease;
 }
 
 .page-header p {
     color: var(--text-light);
     font-size: 1.1rem;
+    transition: color 0.3s ease;
 }
 
 /* --- Options Grid --- */
@@ -123,16 +143,20 @@ body {
     text-decoration: none;
     color: inherit;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
     align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .option-card:hover {
     transform: translateY(-8px);
     box-shadow: 0 12px 25px rgba(0, 0, 0, 0.08);
     border-color: var(--primary-color);
+}
+
+[data-theme="dark"] .option-card:hover {
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3); /* Stronger shadow in dark mode */
 }
 
 .icon-wrapper {
@@ -143,6 +167,7 @@ body {
     justify-content: center;
     align-items: center;
     margin-bottom: 1.5rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .icon-wrapper svg {
@@ -155,21 +180,33 @@ body {
     color: #2563eb;
 }
 
+[data-theme="dark"] .users-icon {
+    background-color: rgba(37, 99, 235, 0.2); /* Muted translucent blue */
+    color: #60a5fa; /* Lighter blue */
+}
+
 .notes-icon {
     background-color: #f3e8ff;
     color: #9333ea;
+}
+
+[data-theme="dark"] .notes-icon {
+    background-color: rgba(147, 51, 234, 0.2); /* Muted translucent purple */
+    color: #c084fc; /* Lighter purple */
 }
 
 .option-card h2 {
     font-size: 1.5rem;
     margin-bottom: 0.75rem;
     color: var(--text-dark);
+    transition: color 0.3s ease;
 }
 
 .option-card p {
     color: var(--text-light);
     font-size: 0.95rem;
     line-height: 1.5;
+    transition: color 0.3s ease;
 }
 
 /* --- Mobile Responsiveness --- */
@@ -181,7 +218,7 @@ body {
         position: fixed; right: -100%; top: 0; height: 100vh; width: 70%;
         background-color: var(--white); flex-direction: column; justify-content: flex-start;
         padding-top: 6rem; gap: 2rem; box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1); 
-        transition: right 0.4s ease;
+        transition: right 0.4s ease, background-color 0.3s ease;
     }
     .nav-links.nav-active { right: 0; }
     .hamburger.toggle .line1 { transform: rotate(-45deg) translate(-5px, 6px); }

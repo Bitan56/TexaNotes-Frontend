@@ -1,3 +1,4 @@
+/* --- Global Variables --- */
 :root {
     --primary-color: #4f46e5;
     --primary-hover: #4338ca;
@@ -6,10 +7,34 @@
     --bg-color: #f9fafb;
     --white: #ffffff;
     --border-color: #e5e7eb;
+    
     --danger-bg: #fee2e2;
     --danger-text: #991b1b;
     --edit-bg: #e0e7ff;
     --edit-text: #3730a3;
+    
+    /* Added variables for the view button */
+    --view-bg: #f3f4f6;
+    --view-text: #4b5563;
+}
+
+/* --- Dark Mode Variables --- */
+[data-theme="dark"] {
+    --primary-color: #6366f1; /* Lighter indigo */
+    --primary-hover: #4f46e5;
+    --text-dark: #f9fafb;     /* White text */
+    --text-light: #9ca3af;    /* Light gray text */
+    --bg-color: #111827;      /* Dark slate background */
+    --white: #1f2937;         /* Dark card/navbar background */
+    --border-color: #374151;  /* Darker borders */
+    
+    /* Muted button backgrounds for dark mode */
+    --danger-bg: rgba(185, 28, 28, 0.2);
+    --danger-text: #f87171;
+    --edit-bg: rgba(99, 102, 241, 0.2);
+    --edit-text: #818cf8;
+    --view-bg: rgba(107, 114, 128, 0.2);
+    --view-text: #9ca3af;
 }
 
 * {
@@ -23,6 +48,7 @@ body {
     background-color: var(--bg-color);
     color: var(--text-dark);
     min-height: 100vh;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
 }
 
 /* --- Navigation --- */
@@ -33,6 +59,7 @@ body {
     padding: 1.2rem 5%;
     background-color: var(--white);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .logo {
@@ -67,10 +94,12 @@ body {
     font-size: 2rem;
     color: var(--text-dark);
     margin-bottom: 0.5rem;
+    transition: color 0.3s ease;
 }
 
 .header-section p {
     color: var(--text-light);
+    transition: color 0.3s ease;
 }
 
 /* --- Card & Table Styles --- */
@@ -80,6 +109,7 @@ body {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.03);
     border: 1px solid var(--border-color);
     overflow: hidden;
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .table-responsive {
@@ -96,15 +126,17 @@ body {
 .notes-table th, .notes-table td {
     padding: 1.25rem 1.5rem;
     border-bottom: 1px solid var(--border-color);
+    transition: border-color 0.3s ease, background-color 0.3s ease;
 }
 
 .notes-table th {
-    background-color: #f9fafb;
+    background-color: var(--bg-color); /* Swapped from hardcoded #f9fafb */
     font-weight: 600;
     color: var(--text-light);
     text-transform: uppercase;
     font-size: 0.85rem;
     letter-spacing: 0.5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .notes-table tr:last-child td {
@@ -112,7 +144,7 @@ body {
 }
 
 .notes-table tr:hover td {
-    background-color: #f9fafb;
+    background-color: var(--bg-color); /* Swapped from hardcoded #f9fafb */
 }
 
 .text-center {
@@ -122,6 +154,7 @@ body {
 .loading-text {
     color: var(--text-light);
     padding: 3rem !important;
+    transition: color 0.3s ease;
 }
 
 /* --- Buttons --- */
@@ -132,7 +165,7 @@ body {
     font-size: 0.85rem;
     font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.2s, transform 0.1s;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.1s, filter 0.3s ease;
     margin-right: 0.5rem;
 }
 
@@ -140,15 +173,12 @@ body {
     transform: scale(0.95);
 }
 
+/* Swapped to use CSS Variables */
 .btn-view {
-    background-color: #f3f4f6;
-    color: #4b5563;
+    background-color: var(--view-bg);
+    color: var(--view-text);
     text-decoration: none;
     display: inline-block;
-}
-
-.btn-view:hover {
-    background-color: #e5e7eb;
 }
 
 .btn-edit {
@@ -156,15 +186,20 @@ body {
     color: var(--edit-text);
 }
 
-.btn-edit:hover {
-    background-color: #c7d2fe;
-}
-
 .btn-delete {
     background-color: var(--danger-bg);
     color: var(--danger-text);
 }
 
+/* Hover effects adapted for both themes using brightness filters */
+.btn-view:hover, 
+.btn-edit:hover, 
 .btn-delete:hover {
-    background-color: #fca5a5;
+    filter: brightness(0.95); /* Darkens slightly in light mode */
+}
+
+[data-theme="dark"] .btn-view:hover,
+[data-theme="dark"] .btn-edit:hover,
+[data-theme="dark"] .btn-delete:hover {
+    filter: brightness(1.2); /* Brightens slightly in dark mode */
 }
