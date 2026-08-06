@@ -1,3 +1,4 @@
+/* --- Global Variables --- */
 :root {
     --primary-color: #4f46e5;
     --primary-hover: #4338ca;
@@ -6,6 +7,17 @@
     --bg-color: #f3f4f6;
     --white: #ffffff;
     --border-color: #d1d5db;
+}
+
+/* --- Dark Mode Variables --- */
+[data-theme="dark"] {
+    --primary-color: #6366f1; /* Lighter indigo for contrast */
+    --primary-hover: #4f46e5;
+    --text-dark: #f9fafb;     /* White text */
+    --text-light: #9ca3af;    /* Light gray text */
+    --bg-color: #111827;      /* Dark slate background */
+    --white: #1f2937;         /* Dark card/input background */
+    --border-color: #374151;  /* Darker borders */
 }
 
 * {
@@ -24,6 +36,7 @@ body {
     min-height: 100vh;
     padding: 2rem 1rem;
     position: relative; 
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
 }
 
 /* --- Home Button Styles --- */
@@ -54,6 +67,7 @@ body {
     padding: 2.5rem 2rem;
     border-radius: 12px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .login-card h2 {
@@ -110,10 +124,12 @@ body {
 .input-group input[type="password"] {
     width: 100%;
     padding: 0.75rem 1rem;
+    background-color: var(--white); /* Ensure inputs match card background */
+    color: var(--text-dark);        /* Ensure text is visible in inputs */
     border: 1px solid var(--border-color);
     border-radius: 8px;
     font-size: 1rem;
-    transition: border-color 0.3s, box-shadow 0.3s;
+    transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s, color 0.3s;
 }
 
 .input-group input:focus {
@@ -122,10 +138,16 @@ body {
     box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
 }
 
+/* Specifically style autofill in webkit browsers to match dark mode */
+[data-theme="dark"] .input-group input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px var(--white) inset !important;
+    -webkit-text-fill-color: var(--text-dark) !important;
+}
+
 .btn-submit {
     width: 100%;
     background-color: var(--primary-color);
-    color: var(--white);
+    color: #ffffff; /* Force white text so it doesn't turn dark in dark mode */
     border: none;
     padding: 0.85rem;
     font-size: 1rem;

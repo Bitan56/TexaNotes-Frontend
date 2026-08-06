@@ -1,0 +1,115 @@
+/* ========================================= */
+/* --- Dark Mode Variables --- */
+/* ========================================= */
+[data-theme="dark"] {
+    --bg-color: #111827;      /* Dark slate background */
+    --text-dark: #f9fafb;     /* White text */
+    --text-light: #9ca3af;    /* Light gray text */
+    --white: #1f2937;         /* Dark card/navbar background */
+}
+
+/* Update border colors in dark mode to prevent bright white lines */
+[data-theme="dark"] footer,
+[data-theme="dark"] .feature-card {
+    border-color: #374151;
+}
+
+/* ========================================= */
+/* --- Settings Page Specific Styles --- */
+/* ========================================= */
+.settings-container {
+    max-width: 600px;
+    margin: 3rem auto;
+    padding: 2rem;
+    background-color: var(--white);
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.settings-container h2 {
+    color: var(--text-dark);
+    margin-bottom: 2rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--bg-color);
+}
+
+.settings-section {
+    margin-bottom: 2rem;
+}
+
+.settings-section h3 {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+}
+
+.setting-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--bg-color);
+    color: var(--text-dark);
+    font-weight: 500;
+}
+
+.setting-item a {
+    color: var(--text-dark);
+    text-decoration: none;
+    width: 100%;
+    display: block;
+    transition: color 0.2s ease;
+}
+
+.setting-item a:hover {
+    color: var(--primary-color);
+}
+
+.setting-item a.danger-text {
+    color: #ef4444; /* Red color for logout */
+}
+
+/* --- Slidable Toggle Switch --- */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 28px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: var(--primary-color);
+}
+
+input:checked + .slider:before {
+    transform: translateX(22px);
+}

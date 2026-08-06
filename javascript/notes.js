@@ -5,7 +5,7 @@ const links = document.querySelectorAll('.nav-links li');
 const logOut = document.querySelector('.btn-logout')
 
 logOut.addEventListener('click',()=>{
-    localStorage.clear()
+    localStorage.removeItem('userName')
     window.location.href = '../index.html'
 })
 

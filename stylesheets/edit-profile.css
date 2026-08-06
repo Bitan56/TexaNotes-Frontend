@@ -1,3 +1,4 @@
+/* --- Global Variables --- */
 :root {
     --primary-color: #4f46e5;
     --primary-hover: #4338ca;
@@ -6,6 +7,17 @@
     --bg-color: #f9fafb;
     --white: #ffffff;
     --border-color: #d1d5db;
+}
+
+/* --- Dark Mode Variables --- */
+[data-theme="dark"] {
+    --primary-color: #6366f1; /* Lighter indigo for contrast */
+    --primary-hover: #4f46e5;
+    --text-dark: #f9fafb;     /* White text */
+    --text-light: #9ca3af;    /* Light gray text */
+    --bg-color: #111827;      /* Dark slate background */
+    --white: #1f2937;         /* Dark card/navbar/input background */
+    --border-color: #374151;  /* Darker borders */
 }
 
 * {
@@ -21,6 +33,7 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
 }
 
 /* Navbar */
@@ -31,6 +44,7 @@ body {
     padding: 1.2rem 5%;
     background-color: var(--white);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .logo {
@@ -47,7 +61,7 @@ body {
 }
 
 .btn-cancel:hover {
-    color: var(--text-dark);
+    color: var(--text-dark); /* Now transitions correctly to white in dark mode */
 }
 
 /* Edit Container */
@@ -67,6 +81,7 @@ body {
     border-radius: 12px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
     border: 1px solid var(--border-color);
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .edit-card h2 {
@@ -98,10 +113,12 @@ body {
 .input-group input {
     width: 100%;
     padding: 0.75rem 1rem;
+    background-color: var(--white); /* Ensure inputs match card background */
+    color: var(--text-dark);        /* Ensure text is visible in inputs */
     border: 1px solid var(--border-color);
     border-radius: 8px;
     font-size: 1rem;
-    transition: border-color 0.3s, box-shadow 0.3s;
+    transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s, color 0.3s;
 }
 
 .input-group input:focus {
@@ -110,10 +127,16 @@ body {
     box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
 }
 
+/* Specifically style autofill in webkit browsers to match dark mode */
+[data-theme="dark"] .input-group input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px var(--white) inset !important;
+    -webkit-text-fill-color: var(--text-dark) !important;
+}
+
 .btn-submit {
     width: 100%;
     background-color: var(--primary-color);
-    color: var(--white);
+    color: #ffffff; /* Forced white text so it doesn't change in dark mode */
     border: none;
     padding: 0.85rem;
     font-size: 1rem;

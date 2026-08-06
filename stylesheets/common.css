@@ -1,0 +1,15 @@
+/* ========================================= */
+/* --- Dark Mode Variables --- */
+/* ========================================= */
+[data-theme="dark"] {
+    --bg-color: #111827;      /* Dark slate background */
+    --text-dark: #f9fafb;     /* White text */
+    --text-light: #9ca3af;    /* Light gray text */
+    --white: #1f2937;         /* Dark card/navbar background */
+}
+
+/* Update border colors in dark mode to prevent bright white lines */
+[data-theme="dark"] footer,
+[data-theme="dark"] .feature-card {
+    border-color: #374151;
+}

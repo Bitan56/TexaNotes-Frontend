@@ -27,6 +27,7 @@ const ASSETS_TO_PRECACHE = [
     './pages/upload.html',
     './pages/user-auth-center.html',
     './pages/offline.html',
+    './pages/settings.html',
     // CSS Stylesheets
     './style.css',
     './stylesheets/academics.css',
@@ -69,6 +70,7 @@ const ASSETS_TO_PRECACHE = [
     './javascript/upload.js',
     './javascript/user-auth-center.js',
     './utility/pwa-register.js',
+    './utility/settings.js',
     // Images/Icons
     './assets/logo.png',
 ];

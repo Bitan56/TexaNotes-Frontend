@@ -9,6 +9,17 @@
     --border-color: #e5e7eb;
 }
 
+/* --- Dark Mode Variables --- */
+[data-theme="dark"] {
+    --primary-color: #6366f1; /* Lighter indigo for contrast */
+    --primary-hover: #4f46e5;
+    --text-dark: #f9fafb;     /* White text */
+    --text-light: #9ca3af;    /* Light gray text */
+    --bg-color: #111827;      /* Dark slate background */
+    --white: #1f2937;         /* Dark card/navbar background */
+    --border-color: #374151;  /* Darker borders */
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -22,6 +33,7 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth theme transition */
 }
 
 /* --- Navigation --- */
@@ -32,6 +44,7 @@ body {
     padding: 1.2rem 5%;
     background-color: var(--white);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .logo {
@@ -95,7 +108,8 @@ body {
     text-align: center;
     text-decoration: none; /* Removes the underline from the link */
     color: inherit;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    /* Added background-color transition for dark mode */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -107,7 +121,7 @@ body {
     border-color: var(--primary-color);
 }
 
-/* Icon Styles */
+/* --- Icon Styles --- */
 .card-icon {
     font-size: 2.8rem;
     margin-bottom: 1.5rem;
@@ -117,13 +131,32 @@ body {
     justify-content: center;
     align-items: center;
     border-radius: 50%;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Specific colors for different icons to make them pop */
+/* Default (Light Mode) Colors */
 .routine-icon { background-color: #e0e7ff; color: #4338ca; }
 .syllabus-icon { background-color: #dcfce7; color: #15803d; }
 .announcement-icon { background-color: #fee2e2; color: #b91c1c; }
 .others-icon { background-color: #f3f4f6; color: #4b5563; }
+
+/* Dark Mode Icon Overrides */
+[data-theme="dark"] .routine-icon { 
+    background-color: rgba(67, 56, 202, 0.2); 
+    color: #818cf8; 
+}
+[data-theme="dark"] .syllabus-icon { 
+    background-color: rgba(21, 128, 61, 0.2); 
+    color: #4ade80; 
+}
+[data-theme="dark"] .announcement-icon { 
+    background-color: rgba(185, 28, 28, 0.2); 
+    color: #f87171; 
+}
+[data-theme="dark"] .others-icon { 
+    background-color: rgba(75, 85, 99, 0.2); 
+    color: #9ca3af; 
+}
 
 .menu-card h3 {
     font-size: 1.4rem;

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../utility/ctrl-guard.js"></script>
+    <script src="../utility/pwa-register.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - TexaNotes</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../stylesheets/settings.css">
+    
+    <!-- IMPORTANT: Run theme script before body loads to stop flashing -->
+    <script src="../theme.js"></script>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo" onclick="window.location.href='../index.html'">TexaNotes</div>
+        <ul class="nav-links">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="notes.html">Notes</a></li>
+            <li><a href="academics.html">Academics</a></li>
+            <li><a href="settings.html">Settings</a></li>
+        </ul>
+        <div class="hamburger">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
+    </nav>
+
+    <!-- Main Settings Area -->
+    <main class="settings-container">
+        <h2>Settings</h2>
+
+        <!-- Appearance Settings -->
+        <div class="settings-section">
+            <h3>Appearance</h3>
+            <div class="setting-item">
+                <span>Dark Mode</span>
+                <label class="switch">
+                    <input type="checkbox" id="dark-mode-toggle">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+
+        <!-- Account Settings (Hidden by default, shown via JS) -->
+        <div class="settings-section" id="account-section" style="display: none;">
+            <h3>Account</h3>
+            <div class="setting-item">
+                <a href="profile.html">View Profile</a>
+            </div>
+            <div class="setting-item">
+                <a href="edit-profile.html">Edit Profile</a>
+            </div>
+            <div class="setting-item">
+                <a href="#" id="logout-btn" class="danger-text">Logout</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Page Specific Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Dark Mode Toggle Logic
+            const themeToggle = document.getElementById('dark-mode-toggle');
+            
+            // Check current theme to set switch position correctly on load
+            if (localStorage.getItem('theme') === 'dark') {
+                themeToggle.checked = true;
+            }
+
+            // Listen for the toggle switch being clicked
+            themeToggle.addEventListener('change', () => {
+                if (themeToggle.checked) {
+                    localStorage.setItem('theme', 'dark');
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                    document.documentElement.setAttribute('data-theme', 'light');
+                }
+            });
+
+            // 2. User Authentication Logic
+            const userName = localStorage.getItem('userName');
+            const accountSection = document.getElementById('account-section');
+
+            // If a user is logged in, reveal the account section
+            if (userName) {
+                accountSection.style.display = 'block';
+            }
+
+            // 3. Logout Logic
+            const logoutBtn = document.getElementById('logout-btn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    
+                    // Clear user data
+                    localStorage.removeItem('userName');
+                    
+                    // Give a quick alert and redirect to home
+                    alert("You have been logged out.");
+                    window.location.href = '../index.html';
+                });
+            }
+        });
+    </script>
+    <script src="../script.js"></script>
+</body>
+</html>

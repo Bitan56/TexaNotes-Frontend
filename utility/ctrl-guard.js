@@ -96,3 +96,15 @@ function initClickRipple() {
 
 // Initialize the effect when the page loads
 window.addEventListener('load', initClickRipple);
+
+// theme.js - Include this in the <head> of ALL your HTML files
+function applySavedTheme() {
+    // Fetch the theme from local storage (default to 'light' if not found)
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    
+    // Apply the theme to the HTML tag as a data attribute
+    document.documentElement.setAttribute('data-theme', savedTheme);
+}
+
+// Run immediately to prevent white flash
+applySavedTheme();
