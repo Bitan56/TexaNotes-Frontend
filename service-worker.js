@@ -1,8 +1,8 @@
-// Name your cache
+// A unique name for your PWA cache
 const CACHE_NAME = 'texanotes-cache-v1';
 
-// Files to cache immediately when the service worker installs
-const ASSETS_TO_CACHE = [
+// List of assets to precache immediately on install
+const ASSETS_TO_PRECACHE = [
     // Core HTML Pages
     './',
     './index.html',
@@ -75,55 +75,72 @@ const ASSETS_TO_CACHE = [
     './assets/logo.png',
 ];
 
-// 1. INSTALL EVENT - Cache the core files and skip waiting
+// --- Install Event ---
+// Precaches all required assets during the install phase.
 self.addEventListener('install', (event) => {
     event.waitUntil(
-        caches.open(CACHE_NAME)
-        .then((cache) => cache.addAll(ASSETS_TO_CACHE))
-        .then(() => self.skipWaiting()) // Forces the SW to activate immediately
+        caches.open(CACHE_NAME).then((cache) => {
+            console.log('Service Worker: Precaching core assets');
+            return cache.addAll(ASSETS_TO_PRECACHE);
+        }).then(() => self.skipWaiting()) // Force the new SW to activate
     );
 });
 
-// 2. ACTIVATE EVENT - Clean up any old, unused caches
+// --- Activate Event ---
+// Cleans up old caches from previous versions of the service worker.
 self.addEventListener('activate', (event) => {
     event.waitUntil(
         caches.keys().then((cacheNames) => {
             return Promise.all(
-                cacheNames.map((cacheName) => {
-                    // If the cache name doesn't match our current one, delete it
-                    if (cacheName !== CACHE_NAME) {
-                        return caches.delete(cacheName);
+                cacheNames.map((cache) => {
+                    if (cache !== CACHE_NAME) {
+                        console.log('Service Worker: Clearing old cache', cache);
+                        return caches.delete(cache);
                     }
                 })
             );
-        })
-        .then(() => self.clients.claim()) // Takes control of all open tabs immediately
+        }).then(() => self.clients.claim()) // Claim controlling all open clients immediately
     );
 });
 
-// 3. FETCH EVENT - Network-First Strategy
+// --- Fetch Event: Cache-First, Network-Fallback Strategy ---
+// Intercepts network requests and serves from cache first.
+// If not found in cache, it tries the network and caches the response.
+// --- Fetch Event: Cache-First, Network-Fallback Strategy ---
 self.addEventListener('fetch', (event) => {
-    // We only want to handle GET requests
-    if (event.request.method !== 'GET') return;
-
-    event.respondWith(
-        // Step A: Try to fetch the file from the network (Vercel)
-        fetch(event.request)
-            .then((networkResponse) => {
-                // If we get a good response, open the cache
-                if (networkResponse && networkResponse.status === 200) {
-                    const responseClone = networkResponse.clone();
-                    caches.open(CACHE_NAME).then((cache) => {
-                        // Step B: Save this fresh file into the cache, replacing the old one
-                        cache.put(event.request, responseClone);
-                    });
+    
+    // 1. Check if the user is trying to load a whole new HTML page
+    if (event.request.mode === 'navigate') {
+        event.respondWith(
+            fetch(event.request).catch(() => {
+                // If the network fails, serve the offline page
+                return caches.match('./pages/offline.html');
+            })
+        );
+    } 
+    // 2. For everything else (CSS, JS, Images, API calls)
+    else {
+        event.respondWith(
+            caches.match(event.request).then((cachedResponse) => {
+                if (cachedResponse) {
+                    return cachedResponse; // Serve from cache
                 }
-                // Return the fresh network file to the user
-                return networkResponse;
+
+                // If not in cache, try the network
+                return fetch(event.request).then((networkResponse) => {
+                    // Cache the new response if it's successful AND it's a GET request
+                    if (networkResponse && networkResponse.status === 200 && event.request.method === 'GET') {
+                        const responseToCache = networkResponse.clone();
+                        caches.open(CACHE_NAME).then((cache) => {
+                            cache.put(event.request, responseToCache);
+                        });
+                    }
+                    return networkResponse;
+                }).catch(() => {
+                    // Do nothing for failed images/APIs, just let them fail silently 
+                    // without returning the HTML offline page.
+                });
             })
-            .catch(() => {
-                // Step C: If the network fetch fails (offline), look in the cache
-                return caches.match(event.request);
-            })
-    );
+        );
+    }
 });
