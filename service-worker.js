@@ -5,7 +5,6 @@ const CACHE_NAME = 'texanotes-cache-v1';
 const ASSETS_TO_PRECACHE = [
     // Core HTML Pages
     '/',
-    '/index.html',
     '/pages/academics.html',
     '/pages/admin.html',
     '/pages/admins-list.html',
@@ -26,6 +25,7 @@ const ASSETS_TO_PRECACHE = [
     '/pages/syllabus.html',
     '/pages/upload.html',
     '/pages/user-auth-center.html',
+    '/pages/offline.html',
     // CSS Stylesheets
     '/style.css',
     '/stylesheets/academics.css',
@@ -67,8 +67,9 @@ const ASSETS_TO_PRECACHE = [
     '/javascript/signup.js',
     '/javascript/upload.js',
     '/javascript/user-auth-center.js',
+    '/utility/pwa-register.js',
     // Images/Icons
-    '/assets/logo.png'
+    '/assets/logo.png',
 ];
 
 // --- Install Event ---
@@ -102,29 +103,41 @@ self.addEventListener('activate', (event) => {
 // --- Fetch Event: Cache-First, Network-Fallback Strategy ---
 // Intercepts network requests and serves from cache first.
 // If not found in cache, it tries the network and caches the response.
+// --- Fetch Event: Cache-First, Network-Fallback Strategy ---
 self.addEventListener('fetch', (event) => {
-    event.respondWith(
-        caches.match(event.request).then((cachedResponse) => {
-            if (cachedResponse) {
-                return cachedResponse; // Serve from cache
-            }
-
-            // If not in cache, try the network
-            return fetch(event.request).then((networkResponse) => {
-                // If the network response is valid, clone it and save to cache
-                if (networkResponse && networkResponse.status === 200) {
-                    const responseToCache = networkResponse.clone();
-                    caches.open(CACHE_NAME).then((cache) => {
-                        cache.put(event.request, responseToCache);
-                    });
+    
+    // 1. Check if the user is trying to load a whole new HTML page
+    if (event.request.mode === 'navigate') {
+        event.respondWith(
+            fetch(event.request).catch(() => {
+                // If the network fails, serve the offline page
+                return caches.match('/pages/offline.html');
+            })
+        );
+    } 
+    // 2. For everything else (CSS, JS, Images, API calls)
+    else {
+        event.respondWith(
+            caches.match(event.request).then((cachedResponse) => {
+                if (cachedResponse) {
+                    return cachedResponse; // Serve from cache
                 }
-                return networkResponse;
-            }).catch(() => {
-                // --- Offline Fallback ---
-                // If network fails (user is offline), return an offline page
-                // You would need to create /pages/offline.html and precache it.
-                // return caches.match('/pages/offline.html');
-            });
-        })
-    );
+
+                // If not in cache, try the network
+                return fetch(event.request).then((networkResponse) => {
+                    // Cache the new response if it's successful AND it's a GET request
+                    if (networkResponse && networkResponse.status === 200 && event.request.method === 'GET') {
+                        const responseToCache = networkResponse.clone();
+                        caches.open(CACHE_NAME).then((cache) => {
+                            cache.put(event.request, responseToCache);
+                        });
+                    }
+                    return networkResponse;
+                }).catch(() => {
+                    // Do nothing for failed images/APIs, just let them fail silently 
+                    // without returning the HTML offline page.
+                });
+            })
+        );
+    }
 });
