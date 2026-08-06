@@ -9,6 +9,17 @@
     --border-color: #e5e7eb;
 }
 
+/* --- Dark Mode Variables --- */
+[data-theme="dark"] {
+    --primary-color: #6366f1; /* Lighter indigo for contrast */
+    --primary-hover: #4f46e5;
+    --text-dark: #f9fafb;     /* White text */
+    --text-light: #9ca3af;    /* Light gray text */
+    --bg-color: #111827;      /* Dark slate background */
+    --white: #1f2937;         /* Dark card/navbar/input background */
+    --border-color: #374151;  /* Darker borders */
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -21,6 +32,7 @@ body {
     color: var(--text-dark);
     line-height: 1.6;
     overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
 }
 
 /* --- Navigation Bar --- */
@@ -34,6 +46,7 @@ body {
     position: sticky;
     top: 0;
     z-index: 100;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .logo {
@@ -74,6 +87,7 @@ body {
     padding: 0.5rem 1rem !important;
     border-radius: 8px;
     border-bottom: none !important;
+    transition: background-color 0.3s ease;
 }
 
 .hamburger {
@@ -119,6 +133,7 @@ body {
     border-radius: 12px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
     margin-bottom: 2.5rem;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .search-box {
@@ -133,12 +148,21 @@ body {
     padding: 0.75rem 1rem;
     border: 1px solid var(--border-color);
     border-radius: 8px;
+    background-color: var(--white); /* Ensure background matches card */
+    color: var(--text-dark);        /* Ensure text is visible */
     font-size: 1rem;
+    transition: border-color 0.3s, background-color 0.3s ease, color 0.3s ease;
 }
 
 .search-box input:focus {
     outline: none;
     border-color: var(--primary-color);
+}
+
+/* Specifically style autofill in webkit browsers to match dark mode */
+[data-theme="dark"] .search-box input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px var(--white) inset !important;
+    -webkit-text-fill-color: var(--text-dark) !important;
 }
 
 .sort-box {
@@ -151,14 +175,21 @@ body {
     padding: 0.75rem 1rem;
     border: 1px solid var(--border-color);
     border-radius: 8px;
-    background-color: var(--white);
+    background-color: var(--white); /* Added explicit background */
+    color: var(--text-dark);        /* Added explicit text color */
     font-size: 1rem;
     cursor: pointer;
+    transition: border-color 0.3s, background-color 0.3s ease, color 0.3s ease;
+}
+
+.sort-box select:focus {
+    outline: none;
+    border-color: var(--primary-color);
 }
 
 .btn-primary {
     background-color: var(--primary-color);
-    color: var(--white);
+    color: #ffffff; /* Forced hex white so it stays white in dark mode */
     border: none;
     padding: 0.75rem 1.5rem;
     border-radius: 8px;
@@ -184,7 +215,7 @@ body {
     padding: 1.5rem;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
     border: 1px solid var(--border-color);
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: transform 0.2s, box-shadow 0.2s, background-color 0.3s ease, border-color 0.3s ease;
     display: flex;
     flex-direction: column;
 }
@@ -194,10 +225,15 @@ body {
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
 }
 
+[data-theme="dark"] .note-card:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3); /* Stronger shadow on dark mode hover */
+}
+
 .note-card h3 {
     color: var(--text-dark);
     font-size: 1.25rem;
     margin-bottom: 0.5rem;
+    transition: color 0.3s ease;
 }
 
 .note-badge {
@@ -210,6 +246,12 @@ body {
     font-weight: 600;
     margin-bottom: 1rem;
     align-self: flex-start;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+[data-theme="dark"] .note-badge {
+    background-color: rgba(99, 102, 241, 0.2); /* Muted indigo background */
+    color: #818cf8; /* Lighter indigo text */
 }
 
 .note-details {
@@ -221,15 +263,17 @@ body {
     font-size: 0.9rem;
     color: var(--text-light);
     margin-bottom: 0.3rem;
+    transition: color 0.3s ease;
 }
 
 .note-details strong {
     color: var(--text-dark);
+    transition: color 0.3s ease;
 }
 
 .btn-download {
     text-align: center;
-    background-color: #f3f4f6;
+    background-color: var(--bg-color); /* Swapped hardcoded #f3f4f6 for variable */
     color: var(--text-dark);
     text-decoration: none;
     padding: 0.75rem;
@@ -240,7 +284,7 @@ body {
 
 .btn-download:hover {
     background-color: var(--primary-color);
-    color: var(--white);
+    color: #ffffff; /* Forced white text on hover */
 }
 
 .loading-state, .error-state, .empty-state {
@@ -249,6 +293,7 @@ body {
     padding: 3rem;
     color: var(--text-light);
     font-size: 1.2rem;
+    transition: color 0.3s ease;
 }
 
 /* --- Mobile Responsiveness --- */
@@ -263,7 +308,7 @@ body {
         position: fixed; right: -100%; top: 0; height: 100vh; width: 70%;
         background-color: var(--white); flex-direction: column; justify-content: flex-start;
         padding-top: 6rem; /* Pushes links down from the top edge */
-        gap: 2rem; box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1); transition: right 0.4s ease;
+        gap: 2rem; box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1); transition: right 0.4s ease, background-color 0.3s ease;
     }
     .nav-links.nav-active { right: 0; }
     

@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             
             if (confirmLogout) {
                 // Clear the stored username and any tokens
-                localStorage.localStorage.remove('userName')
+                localStorage.localStorage.removeItem('userName')
                 
                 // Redirect back to login page
                 window.location.href = '../pages/logIn.html';

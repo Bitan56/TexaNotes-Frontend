@@ -1,3 +1,4 @@
+/* --- Global Variables --- */
 :root {
     --primary-color: #4f46e5;
     --primary-hover: #4338ca;
@@ -13,6 +14,23 @@
     --danger-text: #991b1b;
 }
 
+/* --- Dark Mode Variables --- */
+[data-theme="dark"] {
+    --primary-color: #6366f1; /* Lighter indigo */
+    --primary-hover: #4f46e5;
+    --text-dark: #f9fafb;     /* White text */
+    --text-light: #9ca3af;    /* Light gray text */
+    --bg-color: #111827;      /* Dark slate background */
+    --white: #1f2937;         /* Dark card/navbar background */
+    --border-color: #374151;  /* Darker borders */
+    
+    /* Muted badge and button backgrounds for dark mode */
+    --success-bg: rgba(21, 128, 61, 0.2);
+    --success-text: #4ade80;
+    --danger-bg: rgba(185, 28, 28, 0.2);
+    --danger-text: #f87171;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -24,6 +42,7 @@ body {
     background-color: var(--bg-color);
     color: var(--text-dark);
     min-height: 100vh;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
 }
 
 /* --- Navigation --- */
@@ -34,6 +53,7 @@ body {
     padding: 1.2rem 5%;
     background-color: var(--white);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .logo {
@@ -68,10 +88,12 @@ body {
     font-size: 2rem;
     color: var(--text-dark);
     margin-bottom: 0.5rem;
+    transition: color 0.3s ease;
 }
 
 .header-section p {
     color: var(--text-light);
+    transition: color 0.3s ease;
 }
 
 /* --- Card & Table Styles --- */
@@ -81,6 +103,7 @@ body {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.03);
     border: 1px solid var(--border-color);
     overflow: hidden;
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .table-responsive {
@@ -97,15 +120,17 @@ body {
 .users-table th, .users-table td {
     padding: 1.25rem 1.5rem;
     border-bottom: 1px solid var(--border-color);
+    transition: border-color 0.3s ease, background-color 0.3s ease;
 }
 
 .users-table th {
-    background-color: #f9fafb;
+    background-color: var(--bg-color); /* Swapped from hardcoded #f9fafb */
     font-weight: 600;
     color: var(--text-light);
     text-transform: uppercase;
     font-size: 0.85rem;
     letter-spacing: 0.5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .users-table tr:last-child td {
@@ -113,7 +138,7 @@ body {
 }
 
 .users-table tr:hover td {
-    background-color: #f9fafb;
+    background-color: var(--bg-color); /* Swapped from hardcoded #f9fafb */
 }
 
 .text-center {
@@ -123,6 +148,7 @@ body {
 .loading-text {
     color: var(--text-light);
     padding: 3rem !important;
+    transition: color 0.3s ease;
 }
 
 /* --- Badges & Buttons --- */
@@ -132,6 +158,7 @@ body {
     font-size: 0.85rem;
     font-weight: 600;
     display: inline-block;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .badge-active {
@@ -151,27 +178,30 @@ body {
     font-size: 0.85rem;
     font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.2s, transform 0.1s;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.1s, filter 0.3s ease;
 }
 
 .btn-toggle:active {
     transform: scale(0.95);
 }
 
+/* Swapped to CSS Variables for automatic dark mode support */
 .btn-block {
-    background-color: #fee2e2;
-    color: #991b1b;
-}
-
-.btn-block:hover {
-    background-color: #fca5a5;
+    background-color: var(--danger-bg);
+    color: var(--danger-text);
 }
 
 .btn-unblock {
-    background-color: #dcfce7;
-    color: #166534;
+    background-color: var(--success-bg);
+    color: var(--success-text);
 }
 
-.btn-unblock:hover {
-    background-color: #bbf7d0;
+/* Hover effects adapted for both themes using brightness filters */
+.btn-block:hover, .btn-unblock:hover {
+    filter: brightness(0.95); /* Darkens slightly in light mode */
+}
+
+[data-theme="dark"] .btn-block:hover,
+[data-theme="dark"] .btn-unblock:hover {
+    filter: brightness(1.2); /* Brightens slightly in dark mode */
 }

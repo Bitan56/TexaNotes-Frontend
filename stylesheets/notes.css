@@ -8,6 +8,16 @@
     --white: #ffffff;
 }
 
+/* --- Dark Mode Variables --- */
+[data-theme="dark"] {
+    --primary-color: #6366f1; /* Lighter indigo for better contrast */
+    --primary-hover: #4f46e5;
+    --text-dark: #f9fafb;     /* White text */
+    --text-light: #9ca3af;    /* Light gray text */
+    --bg-color: #111827;      /* Dark slate background */
+    --white: #1f2937;         /* Dark card/navbar background */
+}
+
 /* --- Reset & Base Styles --- */
 * {
     margin: 0;
@@ -21,6 +31,7 @@ body {
     color: var(--text-dark);
     line-height: 1.6;
     overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
 }
 
 /* ========================================= */
@@ -36,6 +47,7 @@ body {
     position: sticky;
     top: 0;
     z-index: 100;
+    transition: background-color 0.3s ease;
 }
 
 .logo {
@@ -67,14 +79,23 @@ body {
 
 .btn-logout {
     background-color: #ef4444; /* Red color for logout */
-    color: var(--white) !important;
+    color: #ffffff !important; /* Forced true white so it stays white in dark mode */
     padding: 0.6rem 1.5rem;
     border-radius: 8px;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, filter 0.3s ease;
 }
 
 .btn-logout:hover {
     background-color: #dc2626;
+}
+
+[data-theme="dark"] .btn-logout {
+    background-color: rgba(239, 68, 68, 0.2); /* Muted red background for dark mode */
+    color: #f87171 !important; /* Light red text */
+}
+
+[data-theme="dark"] .btn-logout:hover {
+    background-color: rgba(239, 68, 68, 0.3);
 }
 
 .hamburger {
@@ -110,11 +131,13 @@ body {
     color: var(--text-dark);
     margin-bottom: 0.5rem;
     letter-spacing: -0.5px;
+    transition: color 0.3s ease;
 }
 
 .dashboard-header p {
     font-size: 1.1rem;
     color: var(--text-light);
+    transition: color 0.3s ease;
 }
 
 .action-cards {
@@ -131,9 +154,14 @@ body {
     text-align: center;
     border: 1px solid #f3f4f6;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s ease, border-color 0.3s ease;
     position: relative;
     overflow: hidden;
+}
+
+[data-theme="dark"] .action-card {
+    border-color: #374151; /* Dark mode border */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 /* Add a subtle top border highlight on hover */
@@ -155,6 +183,11 @@ body {
     border-color: #e5e7eb;
 }
 
+[data-theme="dark"] .action-card:hover {
+    border-color: #4b5563; /* Dark mode hover border */
+    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.4);
+}
+
 .action-card:hover::before {
     transform: scaleX(1);
 }
@@ -167,7 +200,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 .action-card:hover .icon-wrapper {
@@ -179,9 +212,19 @@ body {
     color: var(--primary-color);
 }
 
+[data-theme="dark"] .upload-icon {
+    background-color: rgba(99, 102, 241, 0.2);
+    color: #818cf8;
+}
+
 .view-icon {
     background-color: #ecfdf5; /* Light Emerald */
     color: #10b981; /* Emerald */
+}
+
+[data-theme="dark"] .view-icon {
+    background-color: rgba(16, 185, 129, 0.2);
+    color: #34d399;
 }
 
 .icon-wrapper svg {
@@ -193,12 +236,14 @@ body {
     color: var(--text-dark);
     font-size: 1.5rem;
     margin-bottom: 1rem;
+    transition: color 0.3s ease;
 }
 
 .action-card p {
     color: var(--text-light);
     font-size: 1rem;
     line-height: 1.5;
+    transition: color 0.3s ease;
 }
 
 /* ========================================= */
@@ -221,7 +266,7 @@ body {
         justify-content: center;
         gap: 2rem;
         box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
-        transition: right 0.4s ease-in-out;
+        transition: right 0.4s ease-in-out, background-color 0.3s ease;
     }
 
     .nav-links.nav-active {

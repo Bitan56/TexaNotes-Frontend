@@ -9,13 +9,26 @@
     <title>Offline - TexaNotes</title>
     <meta name="theme-color" content="#4f46e5">
     <style>
+        /* --- Global Variables --- */
         :root {
             --primary-color: #4f46e5;
             --primary-hover: #4338ca;
             --success-color: #10b981;
             --bg-color: #f9fafb;
+            --card-bg: #ffffff;
             --text-dark: #1f2937;
             --text-light: #6b7280;
+        }
+
+        /* --- Dark Mode Variables --- */
+        [data-theme="dark"] {
+            --primary-color: #6366f1; /* Lighter indigo for contrast */
+            --primary-hover: #4f46e5;
+            --success-color: #34d399; /* Lighter emerald for contrast */
+            --bg-color: #111827;      /* Dark slate background */
+            --card-bg: #1f2937;       /* Dark card background */
+            --text-dark: #f9fafb;     /* White text */
+            --text-light: #9ca3af;    /* Light gray text */
         }
 
         * {
@@ -33,16 +46,17 @@
             height: 100vh;
             text-align: center;
             padding: 20px;
+            transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
         }
 
         .offline-container {
-            background: white;
+            background-color: var(--card-bg); /* Swapped from hardcoded white */
             padding: 3rem 2rem;
             border-radius: 16px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
             max-width: 400px;
             width: 100%;
-            transition: all 0.3s ease;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
         }
 
         .icon-container {
@@ -62,6 +76,7 @@
             color: var(--text-dark);
             font-size: 1.5rem;
             margin-bottom: 0.5rem;
+            transition: color 0.3s ease;
         }
 
         p {
@@ -69,18 +84,19 @@
             font-size: 1rem;
             line-height: 1.5;
             margin-bottom: 2rem;
+            transition: color 0.3s ease;
         }
 
         .btn-retry {
             background-color: var(--primary-color);
-            color: white;
+            color: #ffffff; /* Forced hex white so it doesn't change in dark mode */
             border: none;
             padding: 0.75rem 1.5rem;
             font-size: 1rem;
             font-weight: 600;
             border-radius: 8px;
             cursor: pointer;
-            transition: background-color 0.2s ease;
+            transition: background-color 0.2s ease, transform 0.1s ease;
             width: 100%;
         }
 
