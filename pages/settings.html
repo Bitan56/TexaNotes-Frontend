@@ -45,6 +45,15 @@
                 </label>
             </div>
         </div>
+        
+        <!-- Storage Settings (New) -->
+        <div class="settings-section">
+            <h3>Storage</h3>
+            <div class="setting-item">
+                <span>App Cache & Offline Data</span>
+                <button id="clear-cache-btn" class="btn-clear">Clear Cache</button>
+            </div>
+        </div>
 
         <!-- Account Settings (Hidden by default, shown via JS) -->
         <div class="settings-section" id="account-section" style="display: none;">
@@ -104,6 +113,44 @@
                     // Give a quick alert and redirect to home
                     alert("You have been logged out.");
                     window.location.href = '../index.html';
+                });
+            }
+
+            // 4. Clear Cache Logic (New)
+            const clearCacheBtn = document.getElementById('clear-cache-btn');
+            if (clearCacheBtn) {
+                clearCacheBtn.addEventListener('click', async () => {
+                    const confirmClear = confirm("Are you sure you want to clear the app's cache? This will force the app to redownload the latest files from the server.");
+                    
+                    if (confirmClear) {
+                        clearCacheBtn.textContent = "Clearing...";
+                        clearCacheBtn.disabled = true;
+
+                        try {
+                            // Step A: Clear all CacheStorage (Service Worker Caches)
+                            if ('caches' in window) {
+                                const cacheNames = await caches.keys();
+                                await Promise.all(cacheNames.map(name => caches.delete(name)));
+                            }
+
+                            // Step B: Unregister Service Workers (Forces a fresh SW install on next load)
+                            if ('serviceWorker' in navigator) {
+                                const registrations = await navigator.serviceWorker.getRegistrations();
+                                for (let registration of registrations) {
+                                    await registration.unregister();
+                                }
+                            }
+
+                            alert("Cache cleared successfully! The app will now reload.");
+                            window.location.reload(true);
+                            
+                        } catch (error) {
+                            console.error('Error clearing cache:', error);
+                            alert("There was an error clearing the cache.");
+                            clearCacheBtn.textContent = "Clear Cache";
+                            clearCacheBtn.disabled = false;
+                        }
+                    }
                 });
             }
         });
