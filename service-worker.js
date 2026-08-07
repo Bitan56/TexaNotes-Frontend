@@ -70,7 +70,6 @@ const ASSETS_TO_PRECACHE = [
     './javascript/upload.js',
     './javascript/user-auth-center.js',
     './utility/pwa-register.js',
-    './utility/settings.js',
     // Images/Icons
     './assets/logo.png',
 ];
