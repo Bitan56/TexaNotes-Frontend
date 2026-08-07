@@ -16,7 +16,7 @@ window.toggleBlockStatus = async (userName, currentStatus) => {
 
     try {
         // Send the updated status to the new dedicated block route
-        const response = await fetch(`https://texanotes-backend.vercel.app/api/users/block/${userName}`, {
+        const response = await fetch(`${BACKEND_URL}/api/users/block/${userName}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -41,7 +41,7 @@ async function fetchUsers() {
     const tbody = document.getElementById('users-table-body');
     
     try {
-        const response = await fetch('https://texanotes-backend.vercel.app/api/users/getusers');
+        const response = await fetch(`${BACKEND_URL}/api/users/getusers`);
         
         if (!response.ok) {
             throw new Error("Failed to fetch users");

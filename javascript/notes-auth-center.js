@@ -7,7 +7,7 @@ async function fetchNotes() {
     const tbody = document.getElementById('notes-table-body');
     
     try {
-        const response = await fetch('https://texanotes-backend.vercel.app/api/notes/getnotes');
+        const response = await fetch(`${BACKEND_URL}/api/notes/getnotes`);
         
         if (!response.ok) {
             throw new Error("Failed to fetch notes");

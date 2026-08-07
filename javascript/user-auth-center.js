@@ -14,7 +14,7 @@ async function fetchUsers() {
     const tbody = document.getElementById('users-tbody');
     
     try {
-        const response = await fetch('https://texanotes-backend.vercel.app/api/users/getusers');
+        const response = await fetch(`${BACKEND_URL}/api/users/getusers`);
         if (!response.ok) throw new Error("Failed to fetch users");
 
         const result = await response.json();
@@ -130,7 +130,7 @@ window.toggleStatus = async (userId, field, newValue) => {
         const payload = {};
         payload[field] = newValue; 
 
-        const response = await fetch(`https://texanotes-backend.vercel.app/api/users/update-status/${userId}`, {
+        const response = await fetch(`${BACKEND_URL}/api/users/update-status/${userId}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'

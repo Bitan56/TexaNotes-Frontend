@@ -1,4 +1,4 @@
-const API_BASE = "https://texanotes-backend.vercel.app/api/auth";
+const API_BASE = `${BACKEND_URL}/api/auth`;
 
 // State to hold the email across the different steps
 let userEmail = "";

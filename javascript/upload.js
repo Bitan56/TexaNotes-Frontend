@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             // Send POST request
-            const response = await fetch('https://texanotes-backend.vercel.app/api/notes/uploadnotes', {
+            const response = await fetch(`${BACKEND_URL}/api/notes/uploadnotes`, {
                 method: 'POST',
                 // Do NOT set a 'Content-Type' header here. 
                 // The browser will automatically set 'multipart/form-data' with the correct boundaries for FormData.

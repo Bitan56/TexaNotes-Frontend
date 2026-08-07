@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // 1. PRE-FILL THE FORM
     try {
-        const response = await fetch('https://texanotes-backend.vercel.app/api/users/getusers');
+        const response = await fetch(`${BACKEND_URL}/api/users/getusers`);
         const result = await response.json();
         const usersList = result.data ? result.data : result;
 
@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
         try {
-            const response = await fetch(`https://texanotes-backend.vercel.app/api/users/update/${currentUserName}`, {
+            const response = await fetch(`${BACKEND_URL}/api/users/update/${currentUserName}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'

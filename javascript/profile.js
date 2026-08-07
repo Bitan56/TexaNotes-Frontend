@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     try {
         // Fetch all users
-        const response = await fetch('https://texanotes-backend.vercel.app/api/users/getusers');
+        const response = await fetch(`${BACKEND_URL}/api/users/getusers`);
         
         if (!response.ok) {
             throw new Error('Failed to fetch users from server.');

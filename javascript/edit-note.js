@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // 2. Fetch Existing Note Data
     try {
-        const response = await fetch(`https://texanotes-backend.vercel.app/api/notes/${noteId}`);
+        const response = await fetch(`${BACKEND_URL}/api/notes/${noteId}`);
         if (!response.ok) throw new Error("Failed to fetch note details");
         
         const result = await response.json();
@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
         try {
-            const response = await fetch(`https://texanotes-backend.vercel.app/api/notes/update/${noteId}`, {
+            const response = await fetch(`${BACKEND_URL}/api/notes/update/${noteId}`, {
                 method: 'PUT',
                 body: formData // No Content-Type header needed for FormData; browser sets it automatically
             });

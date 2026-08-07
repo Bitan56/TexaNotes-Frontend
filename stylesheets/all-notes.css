@@ -3,21 +3,27 @@
     --primary-color: #4f46e5;
     --primary-hover: #4338ca;
     --text-dark: #1f2937;
+    --text-muted: #4b5563;
     --text-light: #6b7280;
-    --bg-color: #f9fafb;
+    --bg-color: #f3f4f6;
     --white: #ffffff;
     --border-color: #e5e7eb;
+    --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    --card-shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
 /* --- Dark Mode Variables --- */
 [data-theme="dark"] {
-    --primary-color: #6366f1; /* Lighter indigo for contrast */
+    --primary-color: #6366f1;
     --primary-hover: #4f46e5;
-    --text-dark: #f9fafb;     /* White text */
-    --text-light: #9ca3af;    /* Light gray text */
-    --bg-color: #111827;      /* Dark slate background */
-    --white: #1f2937;         /* Dark card/navbar/input background */
-    --border-color: #374151;  /* Darker borders */
+    --text-dark: #f9fafb;
+    --text-muted: #d1d5db;
+    --text-light: #9ca3af;
+    --bg-color: #111827;
+    --white: #1f2937;
+    --border-color: #374151;
+    --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+    --card-shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.4);
 }
 
 * {
@@ -32,7 +38,7 @@ body {
     color: var(--text-dark);
     line-height: 1.6;
     overflow-x: hidden;
-    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* --- Navigation Bar --- */
@@ -73,10 +79,7 @@ body {
     transition: all 0.3s ease;
 }
 
-.nav-links a:hover {
-    color: var(--primary-color);
-}
-
+.nav-links a:hover { color: var(--primary-color); }
 .nav-links a.active {
     color: var(--primary-color);
     border-bottom: 2px solid var(--primary-color);
@@ -90,18 +93,10 @@ body {
     transition: background-color 0.3s ease;
 }
 
-.hamburger {
-    display: none;
-    cursor: pointer;
-    z-index: 101;
-}
-
+.hamburger { display: none; cursor: pointer; z-index: 101; }
 .hamburger div {
-    width: 25px;
-    height: 3px;
-    background-color: var(--text-dark);
-    margin: 5px;
-    transition: all 0.3s ease;
+    width: 25px; height: 3px; background-color: var(--text-dark);
+    margin: 5px; transition: all 0.3s ease;
 }
 
 /* --- Layout --- */
@@ -111,17 +106,16 @@ body {
     padding: 0 5%;
 }
 
-.page-header {
-    margin-bottom: 2.5rem;
-    text-align: center;
-}
-
+.page-header { margin-bottom: 3rem; text-align: center; }
 .page-header h1 {
     font-size: 2.5rem;
-    color: var(--primary-color);
+    color: var(--text-dark);
+    letter-spacing: -0.5px;
+    margin-bottom: 0.5rem;
 }
+.page-header p { color: var(--text-light); font-size: 1.1rem; }
 
-/* --- Controls: Search & Sort --- */
+/* --- Modern Controls Toolbar --- */
 .controls-section {
     display: flex;
     flex-wrap: wrap;
@@ -129,186 +123,264 @@ body {
     align-items: center;
     gap: 1.5rem;
     background-color: var(--white);
-    padding: 1.5rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
-    margin-bottom: 2.5rem;
+    padding: 1rem 1.5rem;
+    border-radius: 16px;
+    box-shadow: var(--card-shadow);
+    margin-bottom: 3rem;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.search-box {
+.search-wrapper {
     display: flex;
+    align-items: center;
     flex: 1;
     min-width: 280px;
-    gap: 0.5rem;
+    background-color: var(--bg-color);
+    border-radius: 10px;
+    padding: 0.5rem 1rem;
+    border: 1px solid transparent;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
 }
 
-.search-box input {
-    flex: 1;
-    padding: 0.75rem 1rem;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    background-color: var(--white); /* Ensure background matches card */
-    color: var(--text-dark);        /* Ensure text is visible */
-    font-size: 1rem;
-    transition: border-color 0.3s, background-color 0.3s ease, color 0.3s ease;
-}
-
-.search-box input:focus {
-    outline: none;
+.search-wrapper:focus-within {
     border-color: var(--primary-color);
+    background-color: var(--white);
 }
 
-/* Specifically style autofill in webkit browsers to match dark mode */
-[data-theme="dark"] .search-box input:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0 30px var(--white) inset !important;
-    -webkit-text-fill-color: var(--text-dark) !important;
+.search-icon {
+    width: 20px;
+    height: 20px;
+    color: var(--text-light);
+    margin-right: 0.8rem;
+}
+
+.search-wrapper input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    color: var(--text-dark);
+    font-size: 1rem;
+    padding: 0.4rem 0;
+    outline: none;
 }
 
 .sort-box {
     display: flex;
     align-items: center;
-    gap: 0.8rem;
+    background-color: var(--bg-color);
+    border-radius: 10px;
+    padding: 0.2rem 1rem;
+    border: 1px solid transparent;
+    transition: background-color 0.3s ease;
+}
+
+.sort-icon {
+    width: 18px;
+    height: 18px;
+    color: var(--text-light);
+    margin-right: 0.5rem;
 }
 
 .sort-box select {
-    padding: 0.75rem 1rem;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    background-color: var(--white); /* Added explicit background */
-    color: var(--text-dark);        /* Added explicit text color */
-    font-size: 1rem;
-    cursor: pointer;
-    transition: border-color 0.3s, background-color 0.3s ease, color 0.3s ease;
-}
-
-.sort-box select:focus {
-    outline: none;
-    border-color: var(--primary-color);
-}
-
-.btn-primary {
-    background-color: var(--primary-color);
-    color: #ffffff; /* Forced hex white so it stays white in dark mode */
+    padding: 0.7rem 0.5rem;
     border: none;
-    padding: 0.75rem 1.5rem;
-    border-radius: 8px;
+    background: transparent;
+    color: var(--text-dark);
+    font-size: 0.95rem;
+    font-weight: 500;
     cursor: pointer;
-    font-weight: 600;
-    transition: background-color 0.3s;
+    outline: none;
+    appearance: none; /* Cleaner look */
 }
 
-.btn-primary:hover {
-    background-color: var(--primary-hover);
-}
-
-/* --- Notes Grid & Cards --- */
+/* --- Notes Grid & Beautiful Cards --- */
 .notes-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: 2rem;
 }
 
 .note-card {
     background-color: var(--white);
-    border-radius: 12px;
+    border-radius: 16px;
     padding: 1.5rem;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+    box-shadow: var(--card-shadow);
     border: 1px solid var(--border-color);
-    transition: transform 0.2s, box-shadow 0.2s, background-color 0.3s ease, border-color 0.3s ease;
     display: flex;
     flex-direction: column;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Top highlight border for cards */
+.note-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), #818cf8);
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
 .note-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    box-shadow: var(--card-shadow-hover);
+    border-color: transparent;
+}
+.note-card:hover::before { opacity: 1; }
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
 }
 
-[data-theme="dark"] .note-card:hover {
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3); /* Stronger shadow on dark mode hover */
+.note-badge {
+    background-color: #eef2ff;
+    color: var(--primary-color);
+    padding: 0.3rem 0.8rem;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+[data-theme="dark"] .note-badge {
+    background-color: rgba(99, 102, 241, 0.15);
+    color: #818cf8;
+}
+
+.note-date {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    font-weight: 500;
 }
 
 .note-card h3 {
     color: var(--text-dark);
-    font-size: 1.25rem;
-    margin-bottom: 0.5rem;
-    transition: color 0.3s ease;
+    font-size: 1.3rem;
+    line-height: 1.3;
+    margin-bottom: 0.25rem;
 }
 
-.note-badge {
-    display: inline-block;
-    background-color: #eef2ff;
+.note-subject {
     color: var(--primary-color);
-    padding: 0.25rem 0.75rem;
-    border-radius: 50px;
-    font-size: 0.8rem;
     font-weight: 600;
-    margin-bottom: 1rem;
-    align-self: flex-start;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-[data-theme="dark"] .note-badge {
-    background-color: rgba(99, 102, 241, 0.2); /* Muted indigo background */
-    color: #818cf8; /* Lighter indigo text */
-}
-
-.note-details {
+    font-size: 0.9rem;
     margin-bottom: 1.5rem;
+}
+
+/* Grid for metadata to organize the info clearly */
+.note-meta-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem 0.5rem;
+    margin-bottom: 1.5rem;
+    background-color: var(--bg-color);
+    padding: 1rem;
+    border-radius: 12px;
     flex-grow: 1;
 }
 
-.note-details p {
-    font-size: 0.9rem;
-    color: var(--text-light);
-    margin-bottom: 0.3rem;
-    transition: color 0.3s ease;
+.meta-item {
+    display: flex;
+    flex-direction: column;
 }
 
-.note-details strong {
-    color: var(--text-dark);
-    transition: color 0.3s ease;
+.meta-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: var(--text-light);
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+}
+
+.meta-value {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border-color);
+    padding-top: 1.25rem;
+    margin-top: auto;
+}
+
+.uploader-info {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.uploader-info svg {
+    width: 16px; height: 16px;
 }
 
 .btn-download {
-    text-align: center;
-    background-color: var(--bg-color); /* Swapped hardcoded #f3f4f6 for variable */
-    color: var(--text-dark);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: var(--primary-color);
+    color: #ffffff;
     text-decoration: none;
-    padding: 0.75rem;
+    padding: 0.6rem 1.2rem;
     border-radius: 8px;
     font-weight: 600;
-    transition: all 0.3s;
+    font-size: 0.9rem;
+    transition: background-color 0.2s, transform 0.1s;
 }
 
-.btn-download:hover {
-    background-color: var(--primary-color);
-    color: #ffffff; /* Forced white text on hover */
-}
+.btn-download:hover { background-color: var(--primary-hover); }
+.btn-download:active { transform: scale(0.95); }
+.btn-download svg { width: 18px; height: 18px; }
 
+/* States */
 .loading-state, .error-state, .empty-state {
     grid-column: 1 / -1;
     text-align: center;
-    padding: 3rem;
+    padding: 4rem 1rem;
     color: var(--text-light);
-    font-size: 1.2rem;
-    transition: color 0.3s ease;
+    font-size: 1.1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
 }
+
+.spinner {
+    width: 40px; height: 40px;
+    border: 3px solid var(--border-color);
+    border-top-color: var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
 
 /* --- Mobile Responsiveness --- */
 @media screen and (max-width: 768px) {
-    /* Navbar & Typography */
     .navbar { padding: 1rem 5%; }
     .page-header h1 { font-size: 2rem; }
     
-    /* Hamburger Menu Animation */
     .hamburger { display: block; }
     .nav-links {
         position: fixed; right: -100%; top: 0; height: 100vh; width: 70%;
         background-color: var(--white); flex-direction: column; justify-content: flex-start;
-        padding-top: 6rem; /* Pushes links down from the top edge */
-        gap: 2rem; box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1); transition: right 0.4s ease, background-color 0.3s ease;
+        padding-top: 6rem; gap: 2rem; box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1); 
+        transition: right 0.4s ease;
     }
     .nav-links.nav-active { right: 0; }
     
@@ -316,37 +388,7 @@ body {
     .hamburger.toggle .line2 { opacity: 0; }
     .hamburger.toggle .line3 { transform: rotate(45deg) translate(-5px, -6px); }
 
-    /* Controls (Search & Sort) */
-    .controls-section { 
-        flex-direction: column; 
-        align-items: stretch; 
-        padding: 1.25rem;
-    }
-    
-    .search-box { 
-        flex-direction: column; /* Stacks input and button vertically */
-        width: 100%; 
-    }
-    
-    .search-box input, 
-    .search-box button { 
-        width: 100%; 
-    }
-    
-    .sort-box { 
-        flex-direction: column; 
-        align-items: flex-start; 
-        width: 100%; 
-    }
-    
-    .sort-box select { 
-        width: 100%; 
-    }
-
-    /* Grid Layout */
-    .notes-grid { 
-        /* Forces 1 column on mobile to prevent horizontal scroll overflow */
-        grid-template-columns: 1fr; 
-        gap: 1.5rem; 
-    }
+    .controls-section { flex-direction: column; align-items: stretch; padding: 1rem; }
+    .search-wrapper, .sort-box { width: 100%; }
+    .notes-grid { grid-template-columns: 1fr; gap: 1.5rem; }
 }

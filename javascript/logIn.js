@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
             };
 
             // Make POST request with JSON payload
-            const response = await fetch('https://texanotes-backend.vercel.app/api/auth/signin', {
+            const response = await fetch(`${BACKEND_URL}/api/auth/signin`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json' // Crucial for backend express.json() parser
