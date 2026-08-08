@@ -15,14 +15,13 @@
 
 /* --- Dark Mode Variables --- */
 [data-theme="dark"] {
-    --primary-color: #6366f1; /* Lighter indigo */
-    --text-dark: #f9fafb;     /* White text */
-    --text-light: #9ca3af;    /* Light gray text */
-    --bg-color: #111827;      /* Dark slate background */
-    --white: #1f2937;         /* Dark card/navbar/input background */
-    --border-color: #374151;  /* Darker borders */
+    --primary-color: #6366f1; 
+    --text-dark: #f9fafb;     
+    --text-light: #9ca3af;    
+    --bg-color: #111827;      
+    --white: #1f2937;         
+    --border-color: #374151;  
     
-    /* Muted badge backgrounds for dark mode */
     --success-bg: rgba(21, 128, 61, 0.2);
     --success-text: #4ade80;
     --danger-bg: rgba(185, 28, 28, 0.2);
@@ -39,7 +38,7 @@
 body {
     background-color: var(--bg-color);
     color: var(--text-dark);
-    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .navbar {
@@ -83,7 +82,7 @@ body {
     transition: border-color 0.3s ease;
 }
 .users-table th { 
-    background-color: var(--bg-color); /* Swapped from hardcoded #f9fafb */
+    background-color: var(--bg-color); 
     font-weight: 600; 
     color: var(--text-light); 
     text-transform: uppercase; 
@@ -105,11 +104,13 @@ body {
 }
 
 .badge-admin { background-color: #dbeafe; color: #1e40af; }
-[data-theme="dark"] .badge-admin { background-color: rgba(59, 130, 246, 0.2); color: #93c5fd; } /* Dark mode override */
+[data-theme="dark"] .badge-admin { background-color: rgba(59, 130, 246, 0.2); color: #93c5fd; } 
 
 .badge-user { background-color: var(--bg-color); color: var(--text-light); }
 .badge-blocked { background-color: var(--danger-bg); color: var(--danger-text); }
 .badge-active { background-color: var(--success-bg); color: var(--success-text); }
+.badge-credits { background-color: #fef3c7; color: #92400e; }
+[data-theme="dark"] .badge-credits { background-color: rgba(245, 158, 11, 0.15); color: #fcd34d; }
 
 .btn-toggle {
     padding: 0.4rem 0.8rem;
@@ -120,21 +121,25 @@ body {
     font-weight: 600;
     transition: background-color 0.2s ease, transform 0.1s, filter 0.2s ease;
     width: 130px; 
+    margin-bottom: 0.4rem;
 }
 .btn-toggle:active { transform: scale(0.95); }
 .btn-toggle:hover { filter: brightness(0.95); }
 [data-theme="dark"] .btn-toggle:hover { filter: brightness(1.2); }
 
-.btn-make-admin { background-color: var(--primary-color); color: #ffffff; } /* Forced white */
+.btn-make-admin { background-color: var(--primary-color); color: #ffffff; } 
 .btn-revoke-admin { background-color: #e5e7eb; color: var(--text-dark); }
-[data-theme="dark"] .btn-revoke-admin { background-color: var(--border-color); } /* Dark mode override */
+[data-theme="dark"] .btn-revoke-admin { background-color: var(--border-color); } 
 
-.btn-block { background-color: var(--danger-text); color: #ffffff; } /* Forced white */
-.btn-unblock { background-color: var(--success-text); color: #ffffff; } /* Forced white */
+.btn-block { background-color: var(--danger-text); color: #ffffff; } 
+.btn-unblock { background-color: var(--success-text); color: #ffffff; } 
+
+/* NEW: Add Credits Button */
+.btn-credit { background-color: #f59e0b; color: #ffffff; }
 
 .loading-state { text-align: center; color: var(--text-light); padding: 3rem; transition: color 0.3s ease; }
 
-/* --- STYLES FOR SEARCH AND SORT --- */
+/* STYLES FOR SEARCH AND SORT */
 .controls-section {
     display: flex;
     flex-wrap: wrap;
@@ -147,29 +152,22 @@ body {
     flex: 1;
     min-width: 250px;
     padding: 0.8rem 1rem;
-    background-color: var(--white); /* Pulls from dark mode variables */
-    color: var(--text-dark);        /* Pulls from dark mode variables */
+    background-color: var(--white);
+    color: var(--text-dark);
     border: 1px solid var(--border-color);
     border-radius: 8px;
     font-size: 1rem;
     transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
-.search-input:focus {
-    outline: none;
-    border-color: var(--primary-color);
-}
+.search-input:focus { outline: none; border-color: var(--primary-color); }
 
-/* Chrome autofill dark mode fix */
 [data-theme="dark"] .search-input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0 30px var(--white) inset !important;
     -webkit-text-fill-color: var(--text-dark) !important;
 }
 
-.sort-buttons {
-    display: flex;
-    gap: 0.5rem;
-}
+.sort-buttons { display: flex; gap: 0.5rem; }
 
 .btn-sort {
     background-color: var(--white);
@@ -182,12 +180,87 @@ body {
     transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
-.btn-sort:hover {
+.btn-sort:hover { border-color: var(--primary-color); }
+.btn-sort.active {
+    background-color: var(--primary-color);
+    color: #ffffff; 
     border-color: var(--primary-color);
 }
 
-.btn-sort.active {
-    background-color: var(--primary-color);
-    color: #ffffff; /* Forced white so it doesn't vanish in dark mode */
-    border-color: var(--primary-color);
+/* ========================================= */
+/* --- NEW: Credit Modal Styles ---          */
+/* ========================================= */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none; /* Hidden by default */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(3px);
 }
+
+.modal-box {
+    background-color: var(--white);
+    padding: 2rem;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    border: 1px solid var(--border-color);
+}
+
+.modal-box h3 { color: var(--text-dark); margin-bottom: 0.5rem; font-size: 1.5rem; }
+.modal-subtitle { color: var(--text-light); font-size: 0.95rem; margin-bottom: 1.5rem; }
+
+.modal-box label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    font-size: 0.9rem;
+}
+
+.modal-input {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--bg-color);
+    color: var(--text-dark);
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.modal-input:focus { outline: none; border-color: var(--primary-color); }
+
+.modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+.btn-cancel {
+    background-color: var(--border-color);
+    color: var(--text-dark);
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: filter 0.2s;
+}
+.btn-cancel:hover { filter: brightness(0.9); }
+
+.btn-confirm {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: filter 0.2s;
+}
+.btn-confirm:hover { filter: brightness(1.1); }

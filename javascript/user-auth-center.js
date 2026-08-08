@@ -1,4 +1,5 @@
 let allUsersData = []; // Store fetched data globally
+let selectedUserIdForCredit = null; // Store ID for modal
 
 document.addEventListener('DOMContentLoaded', () => {
     fetchUsers();
@@ -28,20 +29,20 @@ async function fetchUsers() {
     }
 }
 
-// --- NEW SEARCH & SORT LOGIC ---
+// --- SEARCH & SORT LOGIC ---
 let sortByAdmin = false;
 let sortByBlocked = false;
 
 function toggleSortAdmin() {
     sortByAdmin = !sortByAdmin;
-    sortByBlocked = false; // Turn off the other sort
+    sortByBlocked = false; 
     updateButtonStates();
     applyFilters();
 }
 
 function toggleSortBlocked() {
     sortByBlocked = !sortByBlocked;
-    sortByAdmin = false; // Turn off the other sort
+    sortByAdmin = false; 
     updateButtonStates();
     applyFilters();
 }
@@ -57,7 +58,6 @@ function updateButtonStates() {
 function applyFilters() {
     const query = document.getElementById('search-input').value.toLowerCase();
     
-    // 1. Filter by search query
     let filteredUsers = allUsersData.filter(user => {
         const name = (user.name || '').toLowerCase();
         const username = (user.userName || user.username || '').toLowerCase();
@@ -65,22 +65,19 @@ function applyFilters() {
         return name.includes(query) || username.includes(query) || email.includes(query);
     });
 
-    // 2. Sort the filtered array
     filteredUsers.sort((a, b) => {
         if (sortByAdmin) {
-            // Sort by Admin status (Boolean comparison: true vs false)
             return (b.isAdmin === true) - (a.isAdmin === true);
         } else if (sortByBlocked) {
-            // Sort by Blocked status
             return (b.isBlocked === true) - (a.isBlocked === true);
         }
-        return 0; // Default sort order
+        return 0; 
     });
 
     renderUsers(filteredUsers);
 }
 
-// Render the filtered/sorted users to the table (Your exact original HTML template)
+// Render the filtered/sorted users to the table
 function renderUsers(users) {
     const tbody = document.getElementById('users-tbody');
 
@@ -110,17 +107,25 @@ function renderUsers(users) {
             <td>
                 <div class="status-badge ${user.isBlocked ? 'badge-blocked' : 'badge-active'}">
                     ${user.isBlocked ? 'Blocked' : 'Active'}
+                </div>
+                <div class="status-badge badge-credits">
+                    🪙 ${user.credits !== undefined ? user.credits : 0} Credits
                 </div><br>
+                
                 <button class="btn-toggle ${user.isBlocked ? 'btn-unblock' : 'btn-block'}" 
                         onclick="toggleStatus('${user._id}', 'isBlocked', ${!user.isBlocked})">
                     ${user.isBlocked ? 'Unblock User' : 'Block User'}
+                </button>
+                <button class="btn-toggle btn-credit" 
+                        onclick="openCreditModal('${user._id}', '${user.name}', ${user.credits || 0})">
+                    Add Credits
                 </button>
             </td>
         </tr>
     `).join('');
 }
 
-// Global function to handle toggling statuses (Your exact original function)
+// Global function to handle toggling statuses
 window.toggleStatus = async (userId, field, newValue) => {
     if (field === 'isBlocked' && newValue === true) {
         if (!confirm("Are you sure you want to block this user?")) return;
@@ -139,7 +144,6 @@ window.toggleStatus = async (userId, field, newValue) => {
         });
 
         if (response.ok) {
-            // Re-fetch the user list to update the UI and keep local state perfectly synced
             fetchUsers();
         } else {
             const errorData = await response.json();
@@ -148,5 +152,55 @@ window.toggleStatus = async (userId, field, newValue) => {
     } catch (error) {
         console.error("Update error:", error);
         alert("A network error occurred while updating the status.");
+    }
+};
+
+// --- MODAL & CREDIT LOGIC ---
+window.openCreditModal = (userId, userName, currentCredit) => {
+    selectedUserIdForCredit = userId;
+    document.getElementById('modal-title').innerText = `Add Credits to ${userName}`;
+    document.getElementById('current-credit-display').innerText = currentCredit;
+    document.getElementById('credit-amount-input').value = '';
+    document.getElementById('credit-modal').style.display = 'flex';
+};
+
+window.closeCreditModal = () => {
+    document.getElementById('credit-modal').style.display = 'none';
+    selectedUserIdForCredit = null;
+};
+
+window.submitCredits = async () => {
+    const amountInput = document.getElementById('credit-amount-input').value;
+    const amount = parseInt(amountInput, 10);
+
+    if (!amount || isNaN(amount) || amount <= 0) {
+        alert("Please enter a valid positive number.");
+        return;
+    }
+
+    try {
+        const response = await fetch(`${BACKEND_URL}/api/credits/add-credits/${selectedUserIdForCredit}`, {
+            method: 'PUT', 
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ amount })
+        });
+
+        if (response.ok) {
+            closeCreditModal();
+            fetchUsers(); // Refresh table to show new credit amount
+        } else {
+            // Safely check if the server sent back JSON or an HTML error page
+            const contentType = response.headers.get("content-type");
+            if (contentType && contentType.indexOf("application/json") !== -1) {
+                const errorData = await response.json();
+                alert(errorData.message || "Failed to add credits.");
+            } else {
+                // If it's a 404 HTML page, show this instead of crashing
+                alert(`Error ${response.status}: The backend route was not found. Please check your backend deployment.`);
+            }
+        }
+    } catch (error) {
+        console.error("Credit update error:", error);
+        alert("A network error occurred while adding credits.");
     }
 };

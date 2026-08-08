@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Categories - TexaNotes</title>
     <link rel="stylesheet" href="../stylesheets/all-notes.css">
-    <script src="../utility/pwa-register.js"></script>
+    <!-- <script src="../utility/pwa-register.js"></script> -->
 </head>
 <body>
 
@@ -35,7 +35,7 @@
     <main class="view-container">
         <header class="page-header">
             <h1 id="category-title">All Notes</h1>
-            <p>Browse and download study materials instantly.</p>
+            <p>Browse and unlock premium study materials instantly.</p>
         </header>
 
         <!-- Search & Sort Controls -->
@@ -68,6 +68,23 @@
             <div class="loading-state">
                 <div class="spinner"></div>
                 <p>Fetching notes...</p>
+            </div>
+        </div>
+
+        <!-- Purchase Confirmation Modal Overlay -->
+        <div class="modal-overlay" id="purchase-modal" style="display: none;">
+            <div class="modal-box">
+                <h3 id="modal-title">Unlock Note</h3>
+                <p class="modal-subtitle">Are you sure you want to unlock <strong id="purchase-note-name"></strong>?</p>
+                <div class="modal-price-box">
+                    <span>Cost:</span>
+                    <strong id="purchase-note-price" class="price-highlight">0 Credits</strong>
+                </div>
+                
+                <div class="modal-buttons">
+                    <button class="btn-cancel" onclick="closePurchaseModal()">Cancel</button>
+                    <button class="btn-confirm" id="btn-confirm-purchase" onclick="submitPurchase()">Yes, Unlock</button>
+                </div>
             </div>
         </div>
     </main>

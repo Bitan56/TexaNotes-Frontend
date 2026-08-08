@@ -392,3 +392,127 @@ body {
     .search-wrapper, .sort-box { width: 100%; }
     .notes-grid { grid-template-columns: 1fr; gap: 1.5rem; }
 }
+
+/* ========================================= */
+/* --- Note Locking & Pricing Styles ---     */
+/* ========================================= */
+.price-info {
+    font-size: 0.95rem;
+    color: #d97706; /* Golden coin color */
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+[data-theme="dark"] .price-info {
+    color: #fbbf24;
+}
+
+.btn-lock {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: var(--border-color);
+    color: var(--text-dark);
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.btn-lock:hover {
+    background-color: #fca5a5;
+    color: #991b1b;
+}
+[data-theme="dark"] .btn-lock:hover {
+    background-color: rgba(239, 68, 68, 0.2);
+    color: #fca5a5;
+}
+
+.btn-lock:active { transform: scale(0.95); }
+.btn-lock svg { width: 18px; height: 18px; }
+
+/* ========================================= */
+/* --- Purchase Modal Styles ---             */
+/* ========================================= */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex; /* overridden by inline style when hidden */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(3px);
+}
+
+.modal-box {
+    background-color: var(--white);
+    padding: 2rem;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    border: 1px solid var(--border-color);
+}
+
+.modal-box h3 { color: var(--text-dark); margin-bottom: 0.5rem; font-size: 1.5rem; }
+.modal-subtitle { color: var(--text-light); font-size: 0.95rem; margin-bottom: 1rem; line-height: 1.5; }
+.modal-subtitle strong { color: var(--text-dark); }
+
+.modal-price-box {
+    background-color: #fef3c7;
+    border: 1px solid #fde68a;
+    padding: 1rem;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    color: #92400e;
+}
+
+[data-theme="dark"] .modal-price-box {
+    background-color: rgba(245, 158, 11, 0.15);
+    border-color: rgba(245, 158, 11, 0.3);
+    color: #fcd34d;
+}
+
+.price-highlight {
+    font-size: 1.2rem;
+    font-weight: 800;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+.btn-cancel {
+    background-color: var(--border-color);
+    color: var(--text-dark);
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: filter 0.2s;
+}
+.btn-cancel:hover { filter: brightness(0.9); }
+
+.btn-confirm {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: filter 0.2s;
+}
+.btn-confirm:hover { filter: brightness(1.1); }

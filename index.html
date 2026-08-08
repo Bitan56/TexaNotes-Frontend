@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="./stylesheets/common.css">
     <link rel="manifest" href="manifest.json">
-    <script src="./utility/pwa-register.js"></script>
+    <!-- <script src="./utility/pwa-register.js"></script> -->
     <script src="./utility/ctrl-guard.js"></script>
 </head>
 <body>
@@ -16,20 +16,54 @@
     <nav class="navbar">
         <div class="logo" title="TexaNotes">TexaNotes</div>
         
-        <!-- Navigation Links -->
-        <ul class="nav-links">
-            <li><a href="#home">Home</a></li>
-            <li><a href="./pages/notes.html">Notes</a></li>
-            <li><a href="./pages/academics.html">Academics</a></li>
-            <li><a href="./pages/settings.html">Settings</a></li>
-            <li><a href="./pages/logIn.html" class="btn-login">Login</a></li>
-        </ul>
+        <!-- Right Side Container -->
+        <div class="navbar-right">
+            
+            <!-- Navigation Links (Slides away on mobile) -->
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="./pages/notes.html">Notes</a></li>
+                <li><a href="./pages/academics.html">Academics</a></li>
+                <li><a href="./pages/settings.html">Settings</a></li>
+                <li><a href="./pages/logIn.html" class="btn-login">Login</a></li>
+            </ul>
 
-        <!-- Hamburger Icon for Mobile -->
-        <div class="hamburger">
-            <div class="line1"></div>
-            <div class="line2"></div>
-            <div class="line3"></div>
+            <!-- Always visible actions (Credits + Hamburger) -->
+            <div class="nav-actions">
+                
+                <!-- Credits Section (Hidden by default, shown via JS) -->
+                <div id="credit-container" style="display: none; position: relative;">
+                    <div class="credit-badge" id="credit-badge-btn" title="Your Credits">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="coin-icon">
+                            <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm11.378-3.917c-.89-.777-2.366-1.356-3.628-1.356-1.674 0-2.899.8-2.899 2.144 0 1.25.968 1.83 2.492 2.302 1.34.412 2.404.912 2.404 2.115 0 1.403-1.464 2.164-3.18 2.164-1.328 0-2.67-.655-3.327-1.432.39-.526.853-1.077 1.25-1.574.62.65 1.54 1.104 2.378 1.104 1.2 0 1.637-.585 1.637-1.155 0-1.127-.925-1.583-2.585-2.09-1.595-.487-2.31-1.32-2.31-2.52 0-2.062 1.638-3.342 4.14-3.342 1.29 0 2.52.548 3.195 1.233.355.51.782 1.096 1.144 1.621z" clip-rule="evenodd" />
+                        </svg>
+                        <span id="credit-amount">...</span>
+                        <!-- Plus Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="plus-icon">
+                            <path d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" />
+                        </svg>
+                    </div>
+
+                    <!-- Dropdown Box -->
+                    <div class="credit-dropdown" id="credit-dropdown">
+                        <div class="dropdown-header">
+                            <span>@<span id="dropdown-username">User</span></span>
+                        </div>
+                        <div class="dropdown-body">
+                            <p>Available Credits: <strong id="dropdown-credits">0</strong></p>
+                            <a href="./pages/buy-credits.html" class="btn-buy-credits">Buy Credits</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hamburger Icon for Mobile -->
+                <div class="hamburger">
+                    <div class="line1"></div>
+                    <div class="line2"></div>
+                    <div class="line3"></div>
+                </div>
+
+            </div>
         </div>
     </nav>
 
@@ -64,6 +98,7 @@
     </footer>
 
     <!-- Link to external JS file -->
+     <script src="./utility/essentials.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
