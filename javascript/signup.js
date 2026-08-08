@@ -1,6 +1,10 @@
 const signupForm = document.getElementById('signup-form');
 const submitBtn = document.querySelector('.btn-submit');
 
+// Modal Elements
+const successModal = document.getElementById('success-modal');
+const btnModalContinue = document.getElementById('btn-modal-continue');
+
 signupForm.addEventListener('submit', async (e) => {
     e.preventDefault(); 
 
@@ -9,7 +13,6 @@ signupForm.addEventListener('submit', async (e) => {
     submitBtn.disabled = true;
 
     const name = document.querySelector('#name');
-    // Ensure this matches your HTML id exactly. (Changed to #username to match previous HTML)
     const userName = document.querySelector('#userName'); 
     const email = document.querySelector('#email');
     const password = document.querySelector('#password');
@@ -25,19 +28,29 @@ signupForm.addEventListener('submit', async (e) => {
         const response = await fetch(`${BACKEND_URL}/api/auth/signup`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json' // Tell the backend to expect JSON!
+                'Content-Type': 'application/json' 
             },
             body: JSON.stringify(inputData)
         });
 
         if (response.ok) {
-            alert('Sign up successful!');
             const data = await response.json();
             console.log(data);
-            localStorage.setItem('userName',userName.value)
-            location.reload()
+            
+            // Set session
+            localStorage.setItem('userName', userName.value);
+            
+            // Reset form
             signupForm.reset();
-            // window.location.href = 'login.html'; 
+            
+            // Show the celebration modal!
+            successModal.style.display = 'flex';
+            
+            // When they click "Awesome!", redirect them to the dashboard/home
+            btnModalContinue.onclick = () => {
+                window.location.href = '../index.html'; 
+            };
+            
         } else {
             const errorData = await response.json().catch(() => null);
             const errorMsg = errorData && errorData.message ? errorData.message : 'Sign up failed. Please try again.';
@@ -45,7 +58,7 @@ signupForm.addEventListener('submit', async (e) => {
         }
     } catch (error) {
         console.error('Error during sign up:', error);
-        alert('A network error occurred. Please make sure your server is running on localhost:8000.');
+        alert('A network error occurred.');
     } finally {
         submitBtn.textContent = originalBtnText;
         submitBtn.disabled = false;
