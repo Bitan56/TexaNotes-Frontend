@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../utility/ctrl-guard.js"></script>
+    <script src="../javascript/auth-guard.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy Credits - TexaNotes</title>
+    <link rel="stylesheet" href="../stylesheets/buy-credits.css">
+    <!-- IMPORTANT: Run theme script before body loads to stop flashing -->
+    <script src="../theme.js"></script>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo">TexaNotes</div>
+        <a href="../index.html" class="btn-back">← Back to Home</a>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="buy-container">
+        <div class="header-section">
+            <h2>Buy Credits</h2>
+            <p>Get more credits to unlock premium academic notes.</p>
+        </div>
+
+        <!-- Step 1: Select Package -->
+        <div class="packages-grid">
+            <!-- Package 1 -->
+            <div class="package-card" onclick="selectPackage(1, 10)">
+                <div class="coin-icon-wrapper">🪙</div>
+                <h3>10 Credits</h3>
+                <p class="package-price">₹1</p>
+            </div>
+
+            <!-- Package 2 -->
+            <div class="package-card best-value" onclick="selectPackage(10, 100)">
+                <div class="badge">Best Value</div>
+                <div class="coin-icon-wrapper">🪙🪙</div>
+                <h3>100 Credits</h3>
+                <p class="package-price">₹10</p>
+            </div>
+        </div>
+
+        <!-- Step 2: Payment Section (Hidden by default) -->
+        <div id="payment-section" class="payment-section" style="display: none;">
+            <h3>Complete Your Payment</h3>
+            <p>You are buying <strong id="display-credits">0</strong> credits for <strong id="display-price">₹0</strong>.</p>
+            
+            <div class="payment-methods">
+                <!-- Mobile UPI Link -->
+                <a href="#" id="upi-link-btn" class="btn-upi">
+                    Pay via UPI App (Mobile)
+                </a>
+                
+                <p class="divider"><span>OR</span></p>
+
+                <!-- Desktop QR Code -->
+                <div class="qr-container">
+                    <p>Scan with any UPI App (GPay, PhonePe, Paytm)</p>
+                    <img id="qr-code-img" src="" alt="UPI QR Code">
+                </div>
+            </div>
+
+            <div class="verification-box">
+                <h4>Confirm Your Payment</h4>
+                <p>After paying successfully, enter your 12-digit UPI Reference Number (UTR) below to claim your credits.</p>
+                <div class="input-group">
+                    <label for="utr-input">Transaction ID / UTR</label>
+                    <input type="number" id="utr-input" placeholder="e.g. 312345678901" maxlength="12">
+                </div>
+                <button id="btn-verify-payment" class="btn-primary" onclick="verifyAndClaim()">Claim Credits</button>
+            </div>
+        </div>
+    </main>
+
+    <script src="../utility/essentials.js"></script>
+    <script src="../javascript/buy-credits.js"></script>
+</body>
+</html>
