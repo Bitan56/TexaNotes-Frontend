@@ -65,12 +65,8 @@
 
             <div class="verification-box">
                 <h4>Confirm Your Payment</h4>
-                <p>After paying successfully, enter your 12-digit UPI Reference Number (UTR) below to claim your credits.</p>
-                <div class="input-group">
-                    <label for="utr-input">Transaction ID / UTR</label>
-                    <input type="number" id="utr-input" placeholder="e.g. 312345678901" maxlength="12">
-                </div>
-                <button id="btn-verify-payment" class="btn-primary" onclick="verifyAndClaim()">Claim Credits</button>
+                <p>After paying successfully via GPay/UPI, click the button below. Your payment will be verified by the admin before your credits are added.</p>
+                <button id="btn-verify-payment" class="btn-primary" onclick="requestVerification()">I Have Paid</button>
             </div>
         </div>
     </main>

@@ -33,9 +33,8 @@ function selectPackage(price, credits) {
     document.getElementById('payment-section').scrollIntoView({ behavior: 'smooth' });
 }
 
-async function verifyAndClaim() {
+async function requestVerification() {
     const userName = localStorage.getItem('userName');
-    const utrInput = document.getElementById('utr-input').value;
     
     if (!userName) {
         alert("You must be logged in to claim credits.");
@@ -48,19 +47,15 @@ async function verifyAndClaim() {
         return;
     }
 
-    if (!utrInput || utrInput.length < 12) {
-        alert("Please enter a valid 12-digit UTR or Transaction ID from your UPI app.");
-        return;
-    }
-
     const btn = document.getElementById('btn-verify-payment');
-    btn.innerText = "Verifying...";
+    btn.innerText = "Submitting...";
     btn.disabled = true;
 
     try {
-        const API_URL = `${BACKEND_URL}`;
+        const API_URL = BACKEND_URL;
         
-        const response = await fetch(`${API_URL}/api/credits/user-buy-credits`, {
+        // Changed route to match the new controller
+        const response = await fetch(`${API_URL}/api/credits/request-credits`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -68,23 +63,23 @@ async function verifyAndClaim() {
             body: JSON.stringify({
                 userName: userName,
                 amountPaid: selectedPrice,
-                creditsToAdd: selectedCredits,
-                transactionId: utrInput
+                creditsToAdd: selectedCredits
             })
         });
 
+        const data = await response.json();
+
         if (response.ok) {
-            alert(`Payment verified! ${selectedCredits} credits have been added to your account.`);
+            alert("Payment request sent! The developer will verify your payment and add credits to your account shortly.");
             window.location.href = '../index.html'; // Redirect back home
         } else {
-            const data = await response.json();
-            alert(data.message || "Verification failed. Please contact support.");
+            alert(data.message || "Failed to submit request.");
         }
     } catch (error) {
-        console.error("Error during payment verification:", error);
+        console.error("Error during payment request:", error);
         alert("A network error occurred.");
     } finally {
-        btn.innerText = "Claim Credits";
+        btn.innerText = "I Have Paid";
         btn.disabled = false;
     }
 }

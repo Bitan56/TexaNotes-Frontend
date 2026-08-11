@@ -108,3 +108,4 @@ function applySavedTheme() {
 
 // Run immediately to prevent white flash
 applySavedTheme();
+

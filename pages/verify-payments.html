@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Assuming developer-guard.js restricts access to you only -->
+    <script src="../utility/ctrl-guard.js"></script>
+    <script src="../javascript/developer-guard.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Payments - Admin</title>
+    <link rel="stylesheet" href="../stylesheets/user-auth-center.css"> <!-- Reusing your admin CSS -->
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">TexaNotes Admin</div>
+        <a href="admin.html" class="btn-back">← Admin Dashboard</a>
+    </nav>
+
+    <main class="dashboard-container">
+        <div class="header-section">
+            <h2>Verify Payments</h2>
+            <p>Approve or reject user payment requests.</p>
+        </div>
+
+        <div class="card">
+            <div class="table-responsive">
+                <table class="users-table">
+                    <thead>
+                        <tr>
+                            <th>User Details</th>
+                            <th>Amount & Credits</th>
+                            <th>Date Requested</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="payments-tbody">
+                        <tr>
+                            <td colspan="4" class="loading-state">Loading pending requests...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <script src="../utility/essentials.js"></script>
+    <script src="../javascript/verify-payments.js"></script>
+</body>
+</html>
