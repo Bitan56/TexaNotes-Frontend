@@ -120,6 +120,11 @@ function renderUsers(users) {
                         onclick="openCreditModal('${user._id}', '${user.name}', ${user.credits || 0})">
                     Add Credits
                 </button>
+                <br>
+                <button class="btn-toggle btn-delete" 
+                        onclick="deleteUser('${user._id}', '${user.userName || user.name}')">
+                    Delete User
+                </button>
             </td>
         </tr>
     `).join('');
@@ -152,6 +157,34 @@ window.toggleStatus = async (userId, field, newValue) => {
     } catch (error) {
         console.error("Update error:", error);
         alert("A network error occurred while updating the status.");
+    }
+};
+
+// --- DELETE USER LOGIC ---
+window.deleteUser = async (userId, userName) => {
+    // Extra strong confirmation for destructive actions
+    if (!confirm(`CRITICAL WARNING: Are you absolutely sure you want to PERMANENTLY delete "@${userName}"? This action cannot be undone and will erase their account.`)) {
+        return;
+    }
+
+    try {
+        const response = await fetch(`${BACKEND_URL}/api/users/delete-user/${userId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (response.ok) {
+            alert(`User @${userName} has been successfully deleted.`);
+            fetchUsers(); // Refresh the table
+        } else {
+            const errorData = await response.json();
+            alert(errorData.message || "Failed to delete user.");
+        }
+    } catch (error) {
+        console.error("Delete error:", error);
+        alert("A network error occurred while trying to delete the user.");
     }
 };
 
@@ -189,14 +222,12 @@ window.submitCredits = async () => {
             closeCreditModal();
             fetchUsers(); // Refresh table to show new credit amount
         } else {
-            // Safely check if the server sent back JSON or an HTML error page
             const contentType = response.headers.get("content-type");
             if (contentType && contentType.indexOf("application/json") !== -1) {
                 const errorData = await response.json();
                 alert(errorData.message || "Failed to add credits.");
             } else {
-                // If it's a 404 HTML page, show this instead of crashing
-                alert(`Error ${response.status}: The backend route was not found. Please check your backend deployment.`);
+                alert(`Error ${response.status}: The backend route was not found.`);
             }
         }
     } catch (error) {

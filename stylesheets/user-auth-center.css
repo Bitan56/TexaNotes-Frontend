@@ -137,6 +137,16 @@ body {
 /* NEW: Add Credits Button */
 .btn-credit { background-color: #f59e0b; color: #ffffff; }
 
+/* NEW: Delete User Button */
+.btn-delete { 
+    background-color: var(--danger-text); 
+    color: #ffffff !important; 
+    margin-top: 0.5rem; 
+}
+[data-theme="dark"] .btn-delete {
+    background-color: #7f1d1d; /* Slightly darker red for dark mode */
+}
+
 .loading-state { text-align: center; color: var(--text-light); padding: 3rem; transition: color 0.3s ease; }
 
 /* STYLES FOR SEARCH AND SORT */
